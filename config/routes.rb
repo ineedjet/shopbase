@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
   root 'pages#test'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  
+  devise_for :clients
+  devise_for :staffs
 end
