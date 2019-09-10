@@ -1,0 +1,29 @@
+form {
+  @apply .bg-white .shadow-md .rounded .px-8 .pt-6 .pb-8 .mb-4;
+}
+
+label {
+  @apply .text-gray-700 .text-sm .font-bold;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'] {
+  @apply .shadow .appearance-none .border .border-blue-500 .rounded .w-full .py-2 .px-3 .text-gray-700 .mb-3 .leading-tight;
+  &:focus {
+    @apply .outline-none .shadow-outline;
+  }
+}
+
+button,
+input[type='submit'] {
+  @apply .bg-blue-500 .text-white .font-bold .py-2 .px-4 .rounded;
+
+  &:hover {
+    @apply .bg-blue-700;
+  }
+
+  &:focus {
+    @apply .outline-none .shadow-outline;
+  }
+}

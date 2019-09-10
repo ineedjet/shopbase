@@ -1,7 +1,4 @@
-@import "test.css";
+@import "tailwind";
 
-@tailwind base;
-
-@tailwind components;
-
-@tailwind utilities;
+@import "common/main";
+@import "common/form";
