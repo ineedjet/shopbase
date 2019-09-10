@@ -2,3 +2,5 @@
 
 @import "common/main";
 @import "common/form";
+
+@import "partials/devise";

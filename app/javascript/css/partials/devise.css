@@ -1,0 +1,24 @@
+.notice,
+.alert {
+  @apply .flex .mx-auto .justify-center .shadow-md .py-4;
+}
+
+.notice {
+  @apply .text-green-500 .bg-green-100;
+}
+
+.alert {
+  @apply .text-red-500 .bg-red-100;
+}
+
+nav ul {
+  @apply .flex .justify-end .bg-white;
+
+  li a {
+    @apply .flex .items-center .h-8 .px-2 .py-4;
+
+    &:hover {
+      @apply .text-white .bg-blue-600;
+    }
+  }
+}

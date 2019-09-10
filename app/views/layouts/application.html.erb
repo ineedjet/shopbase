@@ -11,8 +11,29 @@
   </head>
 
   <body class="bg-gray-200">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <nav><ul>
+      <% if staff_signed_in? %>
+        <li>
+          <%= link_to('Logout as a Staff', destroy_staff_session_path, method: :delete) %>        
+        </li>
+      <% else %>
+        <li>
+          <%= link_to('Login as a Staff', new_staff_session_path) %>  
+        </li>
+      <% end %>
+      <% if client_signed_in? %>
+        <li>
+          <%= link_to('Logout as a Client', destroy_client_session_path, method: :delete) %>        
+        </li>
+      <% else %>
+        <li>
+          <%= link_to('Login as a Client', new_client_session_path) %>  
+        </li>
+      <% end %>
+    </ul></nav>
+    <% if notice.present? %><p class="notice"><%= notice %></p><% end %>
+    <% if alert.present? %><p class="alert"><%= alert %></p><% end %>
+    <br>
     <div class="container mx-auto .w-full md:w-1/2 lg:w-1/3">
       <%= yield %>
     </div>

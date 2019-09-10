@@ -2,7 +2,7 @@ a {
   @apply .text-blue-700;
 
   &:hover {
-    @apply .text-blue-500 .border-blue-300 .border-b;
+    @apply .text-blue-500;
   }
 }
 
