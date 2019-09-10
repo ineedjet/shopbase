@@ -5,27 +5,50 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
-/.bundle
+.bundle
+.env
+vendor/bundle
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
+/log
+/tmp
+/cache/*
 !/log/.keep
 !/tmp/.keep
 
-# Ignore uploaded files in development.
-/storage/*
-!/storage/.keep
-
-/public/assets
+# Игнорирование прочих ненужных файлов.
+# database.yml
+doc/
+*.swp
+*.rbc
+*~
+.project
+.DS_Store
+.idea
+.secret
+.rspec
 .byebug_history
+.powenv
+*.bowerrc
+bower.json
+/coverage/
+/spec/tmp
 
-# Ignore master key for decrypting credentials and more.
-/config/master.key
 
-/public/packs
-/public/packs-test
+# Ignore webpacker files
 /node_modules
 /yarn-error.log
-yarn-debug.log*
-.yarn-integrity
+/public/packs
+/public/packs-test
+
+# Ignore secrets keys
+config/secrets.yml.key
+config/master.key
+config/initializers/secret_token.rb
+config/credentials/*.key
+
+#мои личные добавки
+Gemfile.lock
+Capfile
+/public/assets
+/public/system
