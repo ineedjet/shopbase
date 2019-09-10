@@ -11,23 +11,25 @@
   </head>
 
   <body class="bg-gray-200">
-    <nav><ul>
+    <nav>
+    <a href=<%= root_path %> class='logo'> Shopbase </a>
+    <ul>
       <% if staff_signed_in? %>
         <li>
-          <%= link_to('Logout as a Staff', destroy_staff_session_path, method: :delete) %>        
+          <%= link_to('Logout(Staff)', destroy_staff_session_path, method: :delete) %>        
         </li>
       <% else %>
         <li>
-          <%= link_to('Login as a Staff', new_staff_session_path) %>  
+          <%= link_to('Login(Staff)', new_staff_session_path) %>  
         </li>
       <% end %>
       <% if client_signed_in? %>
         <li>
-          <%= link_to('Logout as a Client', destroy_client_session_path, method: :delete) %>        
+          <%= link_to('Logout(Client)', destroy_client_session_path, method: :delete) %>        
         </li>
       <% else %>
         <li>
-          <%= link_to('Login as a Client', new_client_session_path) %>  
+          <%= link_to('Login(Client)', new_client_session_path) %>  
         </li>
       <% end %>
     </ul></nav>

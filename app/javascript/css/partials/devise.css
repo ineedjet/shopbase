@@ -11,10 +11,14 @@
   @apply .text-red-500 .bg-red-100;
 }
 
-nav ul {
-  @apply .flex .justify-end .bg-white;
+nav{
+  @apply .flex .justify-between .bg-white;
+    
+  ul {
+    @apply .flex .justify-end;
+  }
 
-  li a {
+  a {
     @apply .flex .items-center .h-8 .px-2 .py-4;
 
     &:hover {
