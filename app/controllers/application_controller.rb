@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  devise_group :user, contains: [:client, :staff]
+
   def after_sign_in_path_for(resource)
     if resource.class == Client::Client
       clients_app_show_path(resource)
