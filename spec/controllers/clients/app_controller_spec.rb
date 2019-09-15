@@ -16,7 +16,17 @@ RSpec.describe Clients::AppController, type: :controller do
     end
 
     context 'when user is not a client' do
-      it 'redirects to root' do
+      let(:staff) { create(:staff) }
+      before { sign_in(staff) }
+
+      it 'redirects to login page' do
+        get :show
+        expect(response).to redirect_to new_client_session_path
+      end
+    end
+
+    context 'when user is not logged in' do
+      it 'redirects to login page' do
         get :show
         expect(response).to redirect_to new_client_session_path
       end
