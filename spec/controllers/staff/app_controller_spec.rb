@@ -3,15 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe Staffs::AppController, type: :controller do
-  describe 'GET #show' do
+  describe 'GET #index' do
     context 'when user is staff' do
       let(:staff) { create(:staff) }
       before { sign_in(staff) }
 
-      it 'renders show template' do
-        get :show
+      it 'renders index template' do
+        get :index
         expect(response).to have_http_status(200)
-        expect(response).to render_template :show
+        expect(response).to render_template :index
       end
     end
 
@@ -20,14 +20,14 @@ RSpec.describe Staffs::AppController, type: :controller do
       before { sign_in(client) }
 
       it 'redirects to login page' do
-        get :show
+        get :index
         expect(response).to redirect_to new_staff_session_path
       end
     end
 
     context 'when user is not logged in' do
       it 'redirects to login page' do
-        get :show
+        get :index
         expect(response).to redirect_to new_staff_session_path
       end
     end

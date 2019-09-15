@@ -1,6 +1,6 @@
 class Clients::AppController < ApplicationController
   before_action :authenticate_client!
   
-  def show
+  def index
   end
 end

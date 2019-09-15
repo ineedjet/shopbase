@@ -5,10 +5,12 @@ Rails.application.routes.draw do
   devise_for :staffs,  class_name: 'Staff::Staff',   module: 'staffs'
 
   namespace :clients do
-    get 'app/show'
+    root 'app#index'
+    # mount_devise_token_auth_for 'Client', at: 'auth'
   end
 
   namespace :staffs do
-    get 'app/show'
+    root 'app#index'
+    # mount_devise_token_auth_for 'Staff', at: 'auth'
   end
 end
