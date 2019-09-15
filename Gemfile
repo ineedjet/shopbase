@@ -53,4 +53,5 @@ group :test do
   gem 'rspec-rails', '~> 4.0.0.beta2'
   gem 'factory_bot'
   gem 'shoulda-matchers'
+  gem 'rails-controller-testing'
 end
