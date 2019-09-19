@@ -11,4 +11,14 @@ class Staffs::ApplicationController < ApplicationController
       end
     end
   end
+
+  private
+
+  def authenticate_staff!
+    if user_signed_in? && current_user.class == Staff
+      super
+    else
+      redirect_to new_staff_session_path, alert: 'Access denied. Please sign in.'
+    end
+  end
 end

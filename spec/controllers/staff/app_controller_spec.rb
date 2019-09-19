@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Staffs::AppController, type: :controller do
+RSpec.describe Staffs::ApplicationController, type: :controller do
   describe 'GET #index' do
     context 'when user is staff' do
       let(:staff) { create(:staff) }

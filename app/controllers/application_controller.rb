@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.class == Client
-      clients_root_path
+      clients_path
     elsif resource.class == Staff
-      staffs_root_path
+      staffs_path
     end || root_path
   end
 end
