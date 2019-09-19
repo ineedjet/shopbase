@@ -1,0 +1,16 @@
+nav
+  a href=root_path class='logo' Shopbase
+  = current_user.class.to_s
+  ul
+    - if user_signed_in? && current_user.class == Staff
+      li
+        = link_to('Logout(Staff)', destroy_staff_session_path, method: :delete)
+    - else
+      li
+        = link_to('Login(Staff)', new_staff_session_path)
+    - if user_signed_in? && current_user.class == Client
+      li
+        = link_to('Logout(Client)', destroy_client_session_path, method: :delete)
+    - else
+      li
+        = link_to('Login(Client)', new_client_session_path)

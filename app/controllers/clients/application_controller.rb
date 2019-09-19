@@ -1,4 +1,6 @@
 class Clients::ApplicationController < ApplicationController
+  layout 'client'
+  
   before_action :authenticate_client!
   
   def index
