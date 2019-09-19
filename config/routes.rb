@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   root 'pages#home'
   get 'test', to:'pages#test'
 
-  devise_for :clients
-  devise_for :staffs
+  devise_for :clients, path: '/devise'
+  devise_for :staffs, path: '/devise'
 
   namespace :clients do
     root 'application#index'
