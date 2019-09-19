@@ -2,10 +2,7 @@
 
 class RedirectToRoot < Devise::FailureApp
   def route(scope)
-    puts "!!!!! scope = #{scope} scope.class = #{scope.class}"
-    puts "!!!!! polymorphic_path(scope) = #{polymorphic_path(scope.to_s.pluralize)}"
     polymorphic_path(scope.to_s.pluralize)
-    # :root_path
   end
 
   def redirect
