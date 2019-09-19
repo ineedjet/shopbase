@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
-  devise_for :clients, module: 'clients'
-  devise_for :staffs,  module: 'staffs'
+  devise_for :clients
+  devise_for :staffs
 
   namespace :clients do
     root 'application#index'
