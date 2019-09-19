@@ -269,6 +269,13 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
+  config.warden do |manager|
+    manager.failure_app = RedirectToRoot
+    # manager.intercept_401 = false
+    manager.strategies.add(:token, Devise::Strategies::Token)
+    manager.default_strategies(scope: :staff).unshift :token
+    manager.default_strategies(scope: :client).unshift :token
+  end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine

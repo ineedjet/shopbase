@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Clients::AppController, type: :controller do
+RSpec.describe Clients::ApplicationController, type: :controller do
   describe 'GET #index' do
     context 'when user is client' do
       let(:client) { create(:client) }

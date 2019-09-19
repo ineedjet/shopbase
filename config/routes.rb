@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
-  devise_for :clients, class_name: 'Client', module: 'clients'
-  devise_for :staffs,  class_name: 'Staff',   module: 'staffs'
+  devise_for :clients, module: 'clients'
+  devise_for :staffs,  module: 'staffs'
 
   namespace :clients do
-    root 'app#index'
+    root 'application#index'
     mount_devise_token_auth_for 'Client', at: 'auth'
   end
 
   namespace :staffs do
-    root 'app#index'
+    root 'application#index'
     mount_devise_token_auth_for 'Staff', at: 'auth'
   end
 end

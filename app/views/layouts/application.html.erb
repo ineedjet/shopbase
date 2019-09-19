@@ -13,8 +13,9 @@
   <body class="bg-gray-200">
     <nav>
     <a href=<%= root_path %> class='logo'> Shopbase </a>
+    <%= current_user.class.to_s %>
     <ul>
-      <% if staff_signed_in? %>
+      <% if user_signed_in? && current_user.class == Staff %>
         <li>
           <%= link_to('Logout(Staff)', destroy_staff_session_path, method: :delete) %>        
         </li>
@@ -23,7 +24,7 @@
           <%= link_to('Login(Staff)', new_staff_session_path) %>  
         </li>
       <% end %>
-      <% if client_signed_in? %>
+      <% if user_signed_in? && current_user.class == Client %>
         <li>
           <%= link_to('Logout(Client)', destroy_client_session_path, method: :delete) %>        
         </li>
