@@ -7,11 +7,11 @@ Rails.application.routes.draw do
 
   namespace :clients do
     get '/', to: 'application#index'
-    mount_devise_token_auth_for 'Client', at: 'auth'
+    mount_devise_token_auth_for 'Client', at: 'auth', skip: %i[registrations passwords]
   end
 
   namespace :staffs do
     get '/', to: 'application#index'
-    mount_devise_token_auth_for 'Staff', at: 'auth'
+    mount_devise_token_auth_for 'Staff', at: 'auth', skip: %i[registrations passwords]
   end
 end
