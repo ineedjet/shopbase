@@ -21,7 +21,6 @@ module Devise
 
       def authenticate!
         user = mapping.to.find_by(uid: uid)
-
         success! user if user.valid_token?(access_token, client)
       rescue
         fail

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Clients::ApplicationController, type: :controller do
-  describe 'GET #index' do
+  describe 'GET #index by cookie auth' do
     context 'when user is client' do
       let(:client) { create(:client) }
       before { sign_in(client) }

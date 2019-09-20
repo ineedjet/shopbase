@@ -18,7 +18,12 @@ class Clients::ApplicationController < ApplicationController
     if user_signed_in? && current_user.class == Client
       super
     else
-      redirect_to new_client_session_path, alert: 'Access denied. Please sign in.'
+      respond_to do |format|
+        format.html { redirect_to new_client_session_path, alert: 'Access denied. Please sign in.' }
+        format.json do
+          render json: { error: 'You need to sign in or sign up before continuing.' }
+        end
+      end
     end
   end
 end
