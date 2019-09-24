@@ -1,5 +1,5 @@
 <template lang="pug">
-  .form.bg-gray-100.m-2.p-4.rounded.shadow-lg
+  .form.bg-white.m-2.p-4.rounded.shadow-lg
     h5.font-bold.text-2xl New Client
     input(type="hidden" name="id" v-model="client.id")
     

@@ -1,17 +1,17 @@
 <template lang="pug">
   .container.mx-auto.flex
     ClientNewForm(:client="new_client")
-    ClientList(:clients="clients")
+    ClientsList(:clients="clients")
 </template>
 
 <script>
 import ClientNewForm from './client-new';
-import ClientList from './client-list';
+import ClientsList from './clients-list';
 
 export default {
   components: {
     ClientNewForm,
-    ClientList,
+    ClientsList,
   },
   props: ['clients'],
   data: function() {

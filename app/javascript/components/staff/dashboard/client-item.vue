@@ -1,8 +1,8 @@
 <template lang="pug">
-  .client.shadow.bg-white.flex.flex-col.my-2.p-4.rounded
-    h5.font-bold {{ client.fullname }}
-    p {{ client.phone }}
-    p {{ client.email }}
+  tr.client
+    td.font-bold {{ client.fullname }}
+    td {{ client.phone }}
+    td {{ client.email }}
 </template>
 
 <script>
@@ -12,4 +12,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  tr:hover {
+    @apply .bg-white;
+  }
+  td {
+    @apply .px-2 .py-1;
+  }
 </style>

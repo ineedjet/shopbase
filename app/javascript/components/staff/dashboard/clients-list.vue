@@ -1,5 +1,5 @@
 <template lang="pug">
-  .clients
+  table.clients.shadow.bg-gray-100.my-2.rounded
     ClientItem(v-for="item in clients" :client="item")
 </template>
 
