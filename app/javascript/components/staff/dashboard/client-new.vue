@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import eventBus from '../event-bus';
 import InputEmail from './form/input-email'
 import InputFullname from './form/input-fullname'
 import InputPhone from './form/input-phone'
@@ -31,7 +30,7 @@ export default {
   },
   methods: {
     SaveNewClient() {
-      eventBus.$emit('createClient');
+      this.$eventBus.$emit('createClient');
     }
   }
 }

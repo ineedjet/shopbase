@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import eventBus from '../../event-bus';
-
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default {
@@ -38,7 +36,7 @@ export default {
     }
   },
   mounted() {
-    eventBus.$on('createClient', () => {
+    this.$eventBus.$on('createClient', () => {
       this.email = '';
       this.errors = [];
       this.valid_class = '';

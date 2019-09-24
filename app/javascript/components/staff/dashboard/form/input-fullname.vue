@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import eventBus from '../../event-bus';
-
 export default {
   data: function () {
     return {
@@ -36,7 +34,7 @@ export default {
     }
   },
   mounted() {
-    eventBus.$on('createClient', () => {
+    this.$eventBus.$on('createClient', () => {
       this.fullname = '';
       this.errors = [];
       this.valid_class = '';

@@ -4,7 +4,6 @@
 </template>
 
 <script>
-import eventBus from '../event-bus';
 import ClientItem from './client-item';
 
 export default {

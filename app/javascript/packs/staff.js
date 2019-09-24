@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from '../components/staff'
-const eventBus = new Vue();
+Vue.prototype.$eventBus = new Vue();
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
