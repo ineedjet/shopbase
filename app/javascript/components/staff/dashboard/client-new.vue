@@ -1,29 +1,27 @@
 <template lang="pug">
   .form.bg-white.m-2.p-4.rounded.shadow-lg
-    h5.font-bold.text-2xl New Client
+    h5.font-bold.text-2xl New Client !
     input(type="hidden" name="id" v-model="client.id")
     
-    .form-group
-      label(for="email") Email
-      input(type="email" id="email" v-model="client.email")
-      span.error(v-if="errors.email") {{ errors.email }}
-
-    .form-group
-      label(for="fullname") Fullname
-      input(type="text" id="fullname" v-model="client.fullname")
-      span.error(v-if="errors.fullname") {{ errors.fullname }}
-    
-    .form-group
-      label(for="phone") Phone
-      input(type="text" id="phone" v-model="client.phone")
-      span.error(v-if="errors.phone") {{ errors.phone }}
+    InputEmail(:error="errors.email")
+    InputFullname(:error="errors.fullname")
+    InputPhone(:error="errors.phone")
     
     .submit
       input(type="submit" value="Create")
 </template>
 
 <script>
+import InputEmail from './form/input-email'
+import InputFullname from './form/input-fullname'
+import InputPhone from './form/input-phone'
+
 export default {
+  components: {
+    InputEmail,
+    InputFullname,
+    InputPhone,
+  },
   props: ['client'],
   data: function () {
     return {
