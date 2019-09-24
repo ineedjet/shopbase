@@ -10,19 +10,3 @@
 .alert {
   @apply .text-red-500 .bg-red-100;
 }
-
-nav{
-  @apply .flex .justify-between .bg-white;
-    
-  ul {
-    @apply .flex .justify-end;
-  }
-
-  a {
-    @apply .flex .items-center .h-8 .px-2 .py-4;
-
-    &:hover {
-      @apply .text-white .bg-blue-600;
-    }
-  }
-}
