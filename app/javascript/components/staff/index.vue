@@ -1,7 +1,7 @@
 <template lang="pug">
   .staff
     Navbar(:user="staff")
-    Dashboard(:clients="clients")
+    Dashboard
 </template>
 
 <script>
@@ -21,21 +21,7 @@ export default {
         email: "svetoz@gmail.com",
         phone: "1234567890",
         fullname: "Dmitry Dudin"
-      },
-      clients: [
-        {
-          id: 1,
-          email: 'svetoz@gmail.com',
-          phone: "1234567890",
-          fullname: "Adam Dudin"
-        },
-        {
-          id: 2,
-          email: 'dudintv@gmail.com',
-          phone: "1234567890",
-          fullname: "Dmitry Dudin"
-        }
-      ]
+      }
     }
   }
 }

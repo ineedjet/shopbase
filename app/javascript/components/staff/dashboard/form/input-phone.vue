@@ -6,7 +6,7 @@
       v-model="phone"
       v-bind:class="valid_class"
       v-on:blur="validatePhone"
-      v-on:keyup="validatePhone"
+      v-on:input="validatePhone"
       )
     span.error(v-for="error in errors") {{ error }}
 </template>
@@ -34,6 +34,11 @@ export default {
       if (!this.isNotEmpty()) { this.errors.push('Can not be blank') } ;
       if (!this.isValidPhone()) { this.errors.push('No valid phone') } ;
       this.valid_class = (this.errors.length > 0 ? 'invalid' : 'valid')
+    }
+  },
+  watch: {
+    phone: function(phone) {
+      this.$eventBus.$emit('inputPhoneChange', phone);
     }
   },
   mounted() {

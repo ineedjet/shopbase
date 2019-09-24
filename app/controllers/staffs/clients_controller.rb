@@ -1,13 +1,13 @@
-class Staff::ClientsController < ApplicationController
+class Staffs::ClientsController < ApplicationController
   before_action :authenticate_staff!
 
   def index
     @clients = Client.all.order(created_at: :desc)
-    render json: @clients).to_json(only: [:id, :fullname, :phone, :email])
+    render json: @clients.to_json(only: [:id, :fullname, :phone, :email])
   end
 
   def create
-    @client = Client.new(client_params)
+    @client = Client.new(client_params.merge(password: Devise.friendly_token))
 
     if @client.save
       render json: @client.to_json(only: [:id, :fullname, :phone, :email]), status: :created

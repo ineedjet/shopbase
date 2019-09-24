@@ -6,6 +6,7 @@
     InputPhone
     .submit
       input(type="submit" value="Create" @click="SaveNewClient")
+    span.error(v-for="(error, name) in errors") {{ name }} : {{ error }}
 </template>
 
 <script>
@@ -21,17 +22,35 @@ export default {
   },
   data: function () {
     return {
-      errors: {
-        // email: 'Такой email уже существует',
-        // fullname: 'Чего такой короткий?',
-        // phone: 'Такой телефон уже существует',
-      }
+      client: {},
+      errors: [],
     }
   },
   methods: {
     SaveNewClient() {
-      this.$eventBus.$emit('createClient');
+      this.$api.clients
+        .create({ fullname: this.client.fullname, phone: this.client.phone, email: this.client.email })
+        .then(
+          (response) => {
+            this.client = {};
+            this.$eventBus.$emit('createClient');
+          },
+          (errors) => {
+            this.errors = errors.response.data;
+          },
+        );
     }
+  },
+  mounted() {
+    this.$eventBus.$on('inputEmailChange', (email) => {
+      this.client.email = email;
+    });
+    this.$eventBus.$on('inputFullnameChange', (fullname) => {
+      this.client.fullname = fullname;
+    });
+    this.$eventBus.$on('inputPhoneChange', (phone) => {
+      this.client.phone = phone;
+    });
   }
 }
 </script>

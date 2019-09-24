@@ -35,6 +35,11 @@ export default {
       this.valid_class = (this.errors.length > 0 ? 'invalid' : 'valid')
     }
   },
+  watch: {
+    email: function(email) {
+      this.$eventBus.$emit('inputEmailChange', email);
+    }
+  },
   mounted() {
     this.$eventBus.$on('createClient', () => {
       this.email = '';

@@ -33,6 +33,11 @@ export default {
       this.valid_class = (this.errors.length > 0 ? 'invalid' : 'valid')
     }
   },
+  watch: {
+    fullname: function(fullname) {
+      this.$eventBus.$emit('inputFullnameChange', fullname);
+    }
+  },
   mounted() {
     this.$eventBus.$on('createClient', () => {
       this.fullname = '';

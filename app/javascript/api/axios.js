@@ -11,7 +11,9 @@ const adapter = axios.create({
 });
 
 export default {
-  post: (client) => adapter.post('/staffs/clients', { client }),
-  get_index: () => adapter.get('/staffs/clients'),
-  validate: (client) => adapter.post('/staff/clients/validate', { client }),
+  clients: {
+    create: (client) => adapter.post('/staffs/clients', { client }),
+    get_list: () => adapter.get('/staffs/clients'),
+    validate: (client) => adapter.post('/staffs/clients/validate', { client }),
+  }
 };

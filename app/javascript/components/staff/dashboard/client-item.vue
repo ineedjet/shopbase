@@ -1,5 +1,6 @@
 <template lang="pug">
   tr.client
+    td.font-bold {{ client.id }}
     td.font-bold {{ client.fullname }}
     td {{ client.phone }}
     td {{ client.email }}
