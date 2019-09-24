@@ -1,21 +1,43 @@
 <template lang="pug">
   .form-group
     label(for="phone") Phone
-    input(type="text" id="phone" v-model="phone")
-    span.error(v-if="error") {{ error }}
+    input(
+      type="text" id="phone"
+      v-model="phone"
+      v-bind:class="valid_class"
+      v-on:blur="validatePhone"
+      v-on:keyup="validatePhone"
+      )
+    span.error(v-for="error in errors") {{ error }}
 </template>
 
 <script>
+const  phoneRegex= /(?:\(?\+\d{2}\)?\s*)?\d+(?:[ -]*\d+)*$/;
+
 export default {
-  props: ['error'],
   data: function () {
     return {
-      email: ''
+      phone: '',
+      errors: [],
+      valid_class: ''
+    }
+  },
+  methods: {
+    isNotEmpty() {
+      return this.phone.length > 0;
+    },
+    isValidPhone() {
+      return phoneRegex.test(this.phone);
+    },
+    validatePhone() {
+      this.errors = [];
+      if (!this.isNotEmpty()) { this.errors.push('Can not be blank') } ;
+      if (!this.isValidPhone()) { this.errors.push('No valid phone') } ;
+      this.valid_class = (this.errors.length > 0 ? 'invalid' : 'valid')
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-
 </style>

@@ -1,12 +1,9 @@
 <template lang="pug">
   .form.bg-white.m-2.p-4.rounded.shadow-lg
     h5.font-bold.text-2xl New Client !
-    input(type="hidden" name="id" v-model="client.id")
-    
-    InputEmail(:error="errors.email")
-    InputFullname(:error="errors.fullname")
-    InputPhone(:error="errors.phone")
-    
+    InputEmail
+    InputFullname
+    InputPhone
     .submit
       input(type="submit" value="Create")
 </template>
@@ -22,7 +19,6 @@ export default {
     InputFullname,
     InputPhone,
   },
-  props: ['client'],
   data: function () {
     return {
       errors: {
@@ -36,13 +32,4 @@ export default {
 </script>
 
 <style scoped>
-  .form-group {
-    @apply .py-2;
-  }
-  input {
-    @apply .my-1;
-  }
-  .error {
-    @apply .bg-red-400 .p-1 .my-1 .rounded .text-white;
-  }
 </style>

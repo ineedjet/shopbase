@@ -1,6 +1,6 @@
 <template lang="pug">
   .container.mx-auto.flex
-    ClientNewForm(:client="new_client")
+    ClientNewForm
     ClientsList(:clients="clients")
 </template>
 
@@ -13,17 +13,7 @@ export default {
     ClientNewForm,
     ClientsList,
   },
-  props: ['clients'],
-  data: function() {
-    return {
-      new_client: {
-        id: 0,
-        email: '',
-        fullname: '',
-        phone: ''
-      },
-    }
-  }
+  props: ['clients']
 }
 </script>
 
