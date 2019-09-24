@@ -9,6 +9,7 @@
         v-model="client.email"
         v-bind:class="valid_class.email"
         v-on:blur="ValidateEmail"
+        v-on:input="errors.email.length>0 ? ValidateEmail() : {}"
         )
       span.error(v-for="error in errors.email") {{ error }}
 
@@ -30,7 +31,7 @@
         v-model="client.phone"
         v-bind:class="valid_class.phone"
         v-on:blur="ValidatePhone"
-        v-on:input="ValidatePhone"
+        v-on:input="errors.phone.length>0 ? ValidatePhone() : {}"
         )
       span.error(v-for="error in errors.phone") {{ error }}
 
@@ -85,6 +86,18 @@ export default {
       this.errors.email = [];
       if (!this.EmailIsNotEmpty()) { this.errors.email.push('Can not be blank') } ;
       if (!this.EmailIsValid()) { this.errors.email.push('No valid email') } ;
+      if (this.errors.email.length <= 0) {
+        this.$api.clients
+          .validate({ email: this.client.email })
+          .then(
+            () => {
+              this.errors.email = [];
+            },
+            (errors) => {
+              this.errors.email = errors.response.data.email;
+            },
+          );
+      }
       this.valid_class.email = (this.errors.email.length > 0 ? 'invalid' : 'valid')
     },
     ValidateFullname() {
@@ -97,6 +110,18 @@ export default {
       this.errors.phone = [];
       if (!this.PhoneIsNotEmpty()) { this.errors.phone.push('Can not be blank') } ;
       if (!this.PhoneisValid()) { this.errors.phone.push('No valid phone') } ;
+      if (this.errors.phone.length <= 0) {
+        this.$api.clients
+          .validate({ phone: this.client.phone })
+          .then(
+            () => {
+              this.errors.phone = [];
+            },
+            (errors) => {
+              this.errors.phone = errors.response.data.phone;
+            },
+          );
+      }
       this.valid_class.phone = (this.errors.phone.length > 0 ? 'invalid' : 'valid')
     },
     ClearForm() {
