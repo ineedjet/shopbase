@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import eventBus from '../../event-bus';
+
 export default {
   data: function () {
     return {
@@ -32,6 +34,11 @@ export default {
       if (!this.haveMoreThan5Chars()) { this.errors.push('Must have more than 5 characters') } ;
       this.valid_class = (this.errors.length > 0 ? 'invalid' : 'valid')
     }
+  },
+  mounted() {
+    eventBus.$on('createClient', () => {
+      this.fullname = '';
+    });
   }
 }
 </script>

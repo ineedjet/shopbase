@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import eventBus from '../../event-bus';
+
 const  phoneRegex= /(?:\(?\+\d{2}\)?\s*)?\d+(?:[ -]*\d+)*$/;
 
 export default {
@@ -35,6 +37,11 @@ export default {
       if (!this.isValidPhone()) { this.errors.push('No valid phone') } ;
       this.valid_class = (this.errors.length > 0 ? 'invalid' : 'valid')
     }
+  },
+  mounted() {
+    eventBus.$on('createClient', () => {
+      this.phone = '';
+    });
   }
 }
 </script>
