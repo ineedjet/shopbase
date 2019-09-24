@@ -41,6 +41,7 @@ export default {
     eventBus.$on('createClient', () => {
       this.email = '';
       this.errors = [];
+      this.valid_class = '';
     });
   }
 }

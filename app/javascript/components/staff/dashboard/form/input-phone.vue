@@ -42,6 +42,7 @@ export default {
     eventBus.$on('createClient', () => {
       this.phone = '';
       this.errors = [];
+      this.valid_class = '';
     });
   }
 }
