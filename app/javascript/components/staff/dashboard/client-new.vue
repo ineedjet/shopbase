@@ -5,10 +5,11 @@
     InputFullname
     InputPhone
     .submit
-      input(type="submit" value="Create")
+      input(type="submit" value="Create" @click="SaveNewClient")
 </template>
 
 <script>
+import eventBus from '../event-bus';
 import InputEmail from './form/input-email'
 import InputFullname from './form/input-fullname'
 import InputPhone from './form/input-phone'
@@ -26,6 +27,11 @@ export default {
         // fullname: 'Чего такой короткий?',
         // phone: 'Такой телефон уже существует',
       }
+    }
+  },
+  methods: {
+    SaveNewClient() {
+      eventBus.$emit('createClient');
     }
   }
 }
