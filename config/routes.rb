@@ -13,5 +13,11 @@ Rails.application.routes.draw do
   namespace :staffs do
     get '/', to: 'application#index'
     mount_devise_token_auth_for 'Staff', at: 'auth', skip: %i[registrations passwords]
+    
+    resources :clients, only: %i[index create] do
+      collection do
+        post :validate
+      end
+    end
   end
 end
