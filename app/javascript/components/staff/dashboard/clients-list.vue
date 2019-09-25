@@ -18,7 +18,7 @@ export default {
   methods: {
     getClientsList() {
       this.$api.clients
-        .get_list()
+        .index()
         .then(
           (response) => {
             this.clients = response.data;
