@@ -8,7 +8,6 @@ class Staffs::ClientsController < ApplicationController
 
   def create
     @client = Client.new(client_params.merge(password: Devise.friendly_token))
-    @client.phone = @client.phone.scan(/[\d.]/).join # leave only numbers
 
     if @client.save
       render json: @client.to_json(only: [:id, :fullname, :phone, :email]), status: :created
@@ -19,7 +18,6 @@ class Staffs::ClientsController < ApplicationController
 
   def validate
     @client = Client.new(client_params)
-    @client.phone = @client.phone.scan(/[\d.]/).join # leave only numbers
 
     if @client.valid?
       render json: client_params.as_json, status: :ok
@@ -39,6 +37,5 @@ class Staffs::ClientsController < ApplicationController
   end
 
   def serialized_client
-
-  end 
+  end
 end

@@ -9,4 +9,12 @@ class Client < ApplicationRecord
   validates :phone, presence: true,
                     numericality: { only_integer: true },
                     uniqueness: { case_sensitive: false }
+
+  before_validation :phone_number_keeps_only_numbers
+
+  private
+
+  def phone_number_keeps_only_numbers
+    phone = phone.scan(/[\d.]/).join
+  end
 end
