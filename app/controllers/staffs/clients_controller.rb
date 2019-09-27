@@ -3,14 +3,14 @@ class Staffs::ClientsController < ApplicationController
 
   def index
     @clients = Client.all.order(created_at: :desc)
-    render json: @clients.to_json(only: [:id, :fullname, :phone, :email])
+    render json: ClientSerializer.new(@clients).serialized_json
   end
 
   def create
     @client = Client.new(client_params.merge(password: Devise.friendly_token))
 
     if @client.save
-      render json: @client.to_json(only: [:id, :fullname, :phone, :email]), status: :created
+      render json: ClientSerializer.new(@clients).serialized_json, status: :created
     else
       render json: errors_json, status: :unprocessable_entity
     end

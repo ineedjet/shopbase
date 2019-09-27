@@ -15,6 +15,6 @@ class Client < ApplicationRecord
   private
 
   def phone_number_keeps_only_numbers
-    phone = phone.scan(/[\d.]/).join
+    phone = phone.to_s.scan(/[\d.]/).join
   end
 end
