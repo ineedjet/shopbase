@@ -21,7 +21,7 @@ export default {
         .index()
         .then(
           (response) => {
-            this.clients = response.data;
+            this.clients = response.data.data;
           });
     }
   },

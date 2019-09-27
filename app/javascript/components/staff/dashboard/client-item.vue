@@ -1,9 +1,9 @@
 <template lang="pug">
   tr.client
     td.font-bold {{ client.id }}
-    td.font-bold {{ client.fullname }}
-    td {{ client.phone }}
-    td {{ client.email }}
+    td.font-bold {{ client.attributes.fullname }}
+    td {{ client.attributes.phone }}
+    td {{ client.attributes.email }}
 </template>
 
 <script>
