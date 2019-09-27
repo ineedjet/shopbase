@@ -7,9 +7,9 @@
       input(
         type="email" id="email" 
         v-model="client.email"
-        v-bind:class="valid_class.email"
-        v-on:blur="ValidateEmail"
-        v-on:input="errors.email.length>0 ? ValidateEmail() : {}"
+        :class="valid_class.email"
+        @blur="ValidateEmail"
+        @input="errors.email.length>0 ? ValidateEmail() : {}"
         )
       span.error(v-for="error in errors.email") {{ error }}
 
@@ -18,9 +18,9 @@
       input(
         type="text" id="fullname" 
         v-model="client.fullname"
-        v-bind:class="valid_class.fullname"
-        v-on:blur="ValidateFullname"
-        v-on:input="errors.fullname.length>0 ? ValidateFullname() : {}"
+        :class="valid_class.fullname"
+        @blur="ValidateFullname"
+        @input="errors.fullname.length>0 ? ValidateFullname() : {}"
         )
       span.error(v-for="error in errors.fullname") {{ error }}
       
@@ -29,9 +29,9 @@
       input(
         type="text" id="phone"
         v-model="client.phone"
-        v-bind:class="valid_class.phone"
-        v-on:blur="ValidatePhone"
-        v-on:input="errors.phone.length>0 ? ValidatePhone() : {}"
+        :class="valid_class.phone"
+        @blur="ValidatePhone"
+        @input="errors.phone.length>0 ? ValidatePhone() : {}"
         )
       span.error(v-for="error in errors.phone") {{ error }}
 
