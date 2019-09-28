@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import ClientItem from './client-item';
+import ClientItem from './item';
 
 export default {
   components: {

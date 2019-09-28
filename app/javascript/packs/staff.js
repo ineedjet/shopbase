@@ -1,12 +1,16 @@
 import Vue from 'vue'
-import App from '../components/staff'
+import Staff from '../components/staff'
 import Api from '../api/axios';
 Vue.prototype.$eventBus = new Vue();
 Vue.prototype.$api = Api;
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
-    render: h => h(App)
+    render: h => h(Staff,{
+      props: {
+        userEmail: document.body.getAttribute('data-user-email')
+      },
+    })
   }).$mount()
   document.body.appendChild(app.$el)
 })

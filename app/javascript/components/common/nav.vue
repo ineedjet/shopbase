@@ -3,13 +3,13 @@
     a(href="/")
       img.mx-2.my-2.h-8(v-bind:src="require('images/shopbase_logo.png')")
     div.flex.items-center
-      span {{ user.type }}: {{ user.email }}
-      a.flex.items-center.h-full.px-4(:href="'/' + user.type + 's/devise/sign_out'", 'data-method'="delete") Sign out
+      span {{ userType }}: {{ userEmail }}
+      a.flex.items-center.h-full.px-4(:href="'/' + userType + 's/devise/sign_out'", 'data-method'="delete") Sign out
 </template>
 
 <script>
 export default {
-  props: ['user']
+  props: ['userType', 'userEmail']
 }
 </script>
 

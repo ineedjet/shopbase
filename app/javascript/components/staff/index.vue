@@ -1,23 +1,24 @@
 <template lang="pug">
   .staff
-    Navbar
+    Navbar(:userType="'staff'" :userEmail="userEmail")
     Dashboard
 </template>
 
 <script>
 import Navbar from '../common/nav';
-import Dashboard from './dashboard';
+import Dashboard from './dashboard/clients';
 
 export default {
   components: {
     Navbar,
     Dashboard
   },
-  data: function () {
-    return {
-      false
-    }
-  }
+  props: {
+    userEmail: {
+      type: String,
+      default: '',
+    },
+  },
 }
 </script>
 
