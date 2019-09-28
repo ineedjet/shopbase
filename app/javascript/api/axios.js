@@ -15,5 +15,10 @@ export default {
     create: (client) => adapter.post('/staffs/clients', { client }),
     index: () => adapter.get('/staffs/clients'),
     validate: (client) => adapter.post('/staffs/clients/validate', { client }),
+  },
+  organizations: {
+    create: (organization) => adapter.post('/staffs/organizations', { organization }),
+    index: () => adapter.get('/staffs/organizations'),
+    validate: (organization) => adapter.post('/staffs/organizations/validate', { organization }),
   }
 };

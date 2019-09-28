@@ -1,7 +1,7 @@
 <template lang="pug">
   .container.mx-auto.flex
     OrganizationNewForm
-    OrganizationList(:organizaions="organizaion")
+    OrganizationList(:organizations="organizations")
 </template>
 
 <script>
@@ -13,7 +13,7 @@ export default {
     OrganizationNewForm,
     OrganizationList,
   },
-  props: ['organizaions']
+  props: ['organizations']
 }
 </script>
 

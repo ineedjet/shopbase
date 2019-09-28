@@ -42,7 +42,7 @@
 export default {
 	data: function() {
 		return {
-			client: {
+			organization: {
 				name: "",
 				kind: "",
 				inn:  "",
@@ -71,7 +71,7 @@ export default {
 				ogrn: []
 			};
 		},
-		SaveNewClient() {
+		SaveNewOrganization() {
 			this.$api.organizations
 				.create({
 					name: this.organization.name,

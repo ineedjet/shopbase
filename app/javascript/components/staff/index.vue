@@ -6,7 +6,7 @@
 
 <script>
 import Navbar from '../common/nav';
-import Dashboard from './dashboard/clients';
+import Dashboard from './dashboard/organizations';
 
 export default {
   components: {
