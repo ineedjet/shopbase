@@ -25,7 +25,9 @@ import {
    QHeader,
    QDrawer,
    QPageContainer,
-   QPage
+   QPage,
+   QSpinner,
+   QTable
  } from 'quasar'
  
  Vue.use(Quasar, {
@@ -35,7 +37,9 @@ import {
      QHeader,
      QDrawer,
      QPageContainer,
-     QPage
+     QPage,
+     QSpinner,
+     QTable
    },
    directives: {
    },
