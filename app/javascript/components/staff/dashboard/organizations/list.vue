@@ -1,5 +1,6 @@
 <template lang="pug">
-  table.organizations.shadow.bg-gray-100.my-2.rounded
+  q-spinner-bars(v-if="is_loading")
+  table.organizations.shadow.bg-gray-100.my-2.rounded(v-else)
     OrganizationItem(v-for="item in organizations" :organization="item" :key="item.id")
 </template>
 
@@ -13,6 +14,7 @@ export default {
   data() {
     return {
       organizations: this.getOrganizationsList(),
+      is_loading: true
     };
   },
   methods: {
@@ -22,7 +24,7 @@ export default {
         .then(
           (response) => {
             this.organizations = response.data.data;
-          });
+          }).finally(() => (this.is_loading = false));
     }
   },
   mounted() {

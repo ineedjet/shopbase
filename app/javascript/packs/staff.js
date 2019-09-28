@@ -6,7 +6,7 @@ Vue.prototype.$api = Api;
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
-    render: h => h(Staff,{
+    render: h => h(Staff, {
       props: {
         userEmail: document.body.getAttribute('data-user-email')
       },
@@ -24,30 +24,38 @@ import '../assets/styles/quasar.styl'
 import 'quasar/dist/quasar.ie.polyfills'
 
 import {
-   Quasar,
-   QLayout,
-   QHeader,
-   QDrawer,
-   QPageContainer,
-   QPage,
-   QSpinner,
-   QTable
- } from 'quasar'
- 
- Vue.use(Quasar, {
-   config: {},
-   components: {
-     QLayout,
-     QHeader,
-     QDrawer,
-     QPageContainer,
-     QPage,
-     QSpinner,
-     QTable
-   },
-   directives: {
-   },
-   iconSet: iconSet,
-   plugins: {
-   }
- })
+  Quasar,
+  QLayout,
+  QHeader,
+  QDrawer,
+  QPageContainer,
+  QPage,
+  QSpinner,
+  QTable,
+  QTh,
+  QTr,
+  QTd,
+  QSpinnerBars
+} from 'quasar'
+
+Vue.use(Quasar, {
+  config: {},
+  components: {
+    QLayout,
+    QHeader,
+    QDrawer,
+    QPageContainer,
+    QPage,
+    QSpinner,
+    QTable,
+    QTh,
+    QTr,
+    QTd,
+    QSpinnerBars
+  },
+  directives: {
+  },
+  iconSet: iconSet,
+  plugins: {
+  }
+})
