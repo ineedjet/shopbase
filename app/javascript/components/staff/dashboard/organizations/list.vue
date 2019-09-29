@@ -10,7 +10,7 @@
       )
       template(v-slot:body-cell-action="props")
         q-td(:props="props")
-          q-btn(icon="trash" @click="deleteOrganization(props.row)" method="delete")
+          q-btn(icon="fas fa-trash" @click="deleteOrganization(props.row)" method="delete")
 </template>
 
 <script>

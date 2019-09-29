@@ -6,7 +6,7 @@
 			q-input(v-model.trim="organization.name" label="Название" 
 				ref="name"
 				clearable
-				clear-icon="times-circle"
+				clear-icon="fas fa-window-close"
 				:rules="[required]"
 				)
 			span.error(v-for="error in errors.name") {{ error }}
@@ -15,7 +15,7 @@
 			q-input(v-model.trim="organization.kind" label="Форма организации"
 				ref="kind"
 				clearable
-				clear-icon="times-circle"
+				clear-icon="fas fa-window-close"
 				:rules="[required]"
 				)
 			span.error(v-for="error in errors.kind") {{ error }}
