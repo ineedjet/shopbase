@@ -1,57 +1,61 @@
 <template lang="pug">
-  .form.bg-white.m-2.p-4.rounded.shadow-lg
-    h5.font-bold.text-2xl
-    
-    .form-group
-      label(for="name") Название
-      input(
-        type="text" id="name" 
-        v-model="organization.name"
-        )
-      span.error(v-for="error in errors.name") {{ error }}
+	q-form.bg-white.m-2.p-4.rounded.shadow-lg(ref='form')
+		h5.font-bold.text-2xl
+		
+		.form-group
+			q-input(v-model.trim="organization.name" label="Название" 
+				ref="name"
+				clearable
+				clear-icon="times-circle"
+				:rules="[required]"
+				)
+			span.error(v-for="error in errors.name") {{ error }}
 
-    .form-group
-      label(for="kind") Форма организации
-      input(
-        type="text" id="kind" 
-        v-model="organization.kind"
-        )
-      span.error(v-for="error in errors.kind") {{ error }}
-      
-    .form-group
-      label(for="inn") ИНН
-      input(
-        type="text" id="inn"
-        v-model="organization.inn"
-        )
-      span.error(v-for="error in errors.inn") {{ error }}
+		.form-group
+			q-input(v-model.trim="organization.kind" label="Форма организации"
+				ref="kind"
+				clearable
+				clear-icon="times-circle"
+				:rules="[required]"
+				)
+			span.error(v-for="error in errors.kind") {{ error }}
+		
+		.form-group
+			q-input(v-model.number="organization.inn" label="ИНН"
+				ref="inn"
+				type="number"
+				:rules="[required]"
+				)
+			span.error(v-for="error in errors.inn") {{ error }}
+		
+		.form-group
+			q-input(v-model.number="organization.ogrn" label="ОГРН"
+				ref="ogrn"
+				type="number"
+				:rules="[required]"
+				)
+			span.error(v-for="error in errors.ogrn") {{ error }}
 
-    .form-group
-      label(for="ogrn") ОГРН
-      input(
-        type="text" id="ogrn"
-        v-model="organization.ogrn"
-        )
-      span.error(v-for="error in errors.ogrn") {{ error }}
-
-    .submit
-      input(type="submit" value="Create" @click="SaveNewOrganization")
+		.submit
+			q-btn(type="submit" color="primary" label="Create" @click="SaveNewOrganization")
 </template>
 
 <script>
+import { required } from '../../../../utils/validations';
+
 export default {
 	data: function() {
 		return {
 			organization: {
 				name: "",
 				kind: "",
-				inn:  "",
+				inn: "",
 				ogrn: ""
 			},
 			errors: {
 				name: [],
 				kind: [],
-				inn:  [],
+				inn: [],
 				ogrn: []
 			}
 		};
@@ -61,35 +65,68 @@ export default {
 			this.organization = {
 				name: "",
 				kind: "",
-				inn:  "",
+				inn: "",
 				ogrn: ""
 			};
 			this.errors = {
 				name: [],
 				kind: [],
-				inn:  [],
+				inn: [],
 				ogrn: []
 			};
 		},
-		SaveNewOrganization() {
-			this.$api.organizations
-				.create({
+		SendForm() {
+			this.$api.organizations.
+					create({
 					name: this.organization.name,
 					kind: this.organization.kind,
-					inn:  this.organization.inn,
+					inn: this.organization.inn,
 					ogrn: this.organization.ogrn
-				})
-				.then(
+				}).then(
 					response => {
 						this.$eventBus.$emit("createOrganization");
 						this.ClearForm();
+						this.$nextTick(() => {
+							this.$refs.form.resetValidation();
+						});
 					},
 					errors => {
 						this.errors = errors.response.data;
+						this.$q.notify({
+							color: 'negative',
+							message: 'Couldn\'t save this form.'
+						});
+						this.$nextTick(() => {
+							this.$refs.form.resetValidation();
+						});
 					}
 				);
-		}
-	}
+		},
+		SaveNewOrganization() {
+			this.$refs.name.validate();
+			this.$refs.kind.validate();
+			this.$refs.inn.validate();
+			this.$refs.ogrn.validate();
+
+			if (this.$refs.name.hasError || 
+					this.$refs.kind.hasError || 
+					this.$refs.inn.hasError || 
+					this.$refs.ogrn.hasError) {
+        this.$q.notify({
+          color: 'negative',
+          message: 'Can\'t send it. Some error(s) in form.'
+        })
+      }else {
+				this.SendForm();
+        this.$q.notify({
+          icon: 'done',
+          color: 'positive',
+          message: 'Submitted'
+        })
+      }
+		},
+		required,
+	},
 };
 </script>
 

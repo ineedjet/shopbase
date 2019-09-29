@@ -35,11 +35,17 @@ import {
   QTh,
   QTr,
   QTd,
-  QSpinnerBars
+  QSpinnerBars,
+  QToolbar,
+  QToolbarTitle,
+  QForm,
+  QField,
+  QInput,
+  QBtn,
+  Notify,
 } from 'quasar'
 
 Vue.use(Quasar, {
-  config: {},
   components: {
     QLayout,
     QHeader,
@@ -51,11 +57,19 @@ Vue.use(Quasar, {
     QTh,
     QTr,
     QTd,
-    QSpinnerBars
+    QSpinnerBars,
+    QToolbar,
+    QToolbarTitle,
+    QForm,
+    QField,
+    QInput,
+    QBtn,
+  },
+  plugins: {
+    Notify,
   },
   directives: {
   },
+  config: {},
   iconSet: iconSet,
-  plugins: {
-  }
-})
+});

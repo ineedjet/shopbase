@@ -1,7 +1,9 @@
 <template lang="pug">
-  .staff
+  q-layout(view='hhh lpR fFf')
     Navbar(:userType="'staff'" :userEmail="userEmail")
-    Dashboard
+    q-page-container
+      q-page
+        Dashboard
 </template>
 
 <script>
