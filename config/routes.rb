@@ -19,6 +19,6 @@ Rails.application.routes.draw do
         post :validate
       end
     end
-    resources :organizations, only: %i[index create]
+    resources :organizations, only: %i[index create destroy]
   end
 end

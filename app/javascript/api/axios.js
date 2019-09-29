@@ -19,6 +19,6 @@ export default {
   organizations: {
     create: (organization) => adapter.post('/staffs/organizations', { organization }),
     index: () => adapter.get('/staffs/organizations'),
-    validate: (organization) => adapter.post('/staffs/organizations/validate', { organization }),
+    destroy: (id) => adapter.delete(`/staffs/organizations/${id}`),
   }
 };

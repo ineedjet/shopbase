@@ -26,6 +26,14 @@ class Staffs::OrganizationsController < ApplicationController
     end
   end
 
+  def destroy
+    @organization = Organization.find(params[:id])
+    @organization.destroy
+
+    # render json: OrganizationSerializer.new(@organization).serialized_json, status: :deleted
+    head :no_content
+  end
+
   private
 
   def organization_params

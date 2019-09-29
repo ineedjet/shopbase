@@ -6,10 +6,11 @@
         :data="organizations"
         :columns="columns"
         row-key="id"
+        no-data-label="Empty list of organization."
       )
       template(v-slot:body-cell-action="props")
         q-td(:props="props")
-          q-btn(icon="qwerty" @click="deleteOrganization(props.row)")
+          q-btn(icon="trash" @click="deleteOrganization(props.row)" method="delete")
 </template>
 
 <script>
@@ -36,7 +37,7 @@ export default {
         },
         { name: 'inn', label: 'INN', field: 'inn' },
         { name: 'ogrn', label: 'OGRN', field: 'ogrn' },
-        { name: 'props', label: 'actions', field: 'props' }
+        { name: 'action', label: 'actions', align: 'left' }
       ],
     };
   },
@@ -48,7 +49,21 @@ export default {
           (response) => {
             this.organizations = response.data.data.map(i => i.attributes);
           }).finally(() => (this.is_loading = false));
-    }
+    },
+    deleteOrganization(organization) {
+      this.$api.organizations
+        .destroy(organization.id)
+        .then(
+          response => {
+            this.getOrganizationsList();
+          },
+          errors => {
+            this.$q.notify({
+							color: 'negative',
+							message: errors.response.data
+						});
+          })
+    },
   },
   mounted() {
     this.$eventBus.$on('createOrganization', () => {
