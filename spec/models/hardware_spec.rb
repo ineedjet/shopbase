@@ -10,6 +10,7 @@ RSpec.describe Hardware, type: :model do
 
     it { should validate_presence_of(:number) }
     it { should validate_numericality_of(:number) }
+    it { should validate_uniqueness_of(:number).case_insensitive }
 
     it { should have_many(:organizations) }
   end

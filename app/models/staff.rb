@@ -4,4 +4,7 @@ class Staff < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
+
+  validates :fullname, presence: true, length: { minimum: 5 }
+  validates :position, presence: true, length: { minimum: 5 }
 end
