@@ -14,11 +14,11 @@ Rails.application.routes.draw do
     get "/", to: "application#index"
     mount_devise_token_auth_for "Staff", at: "auth", skip: %i[registrations passwords]
 
-    resources :clients, only: %i[index create] do
+    resources :clients, only: %i[index create], constraints: { format: "json" } do
       collection do
         post :validate
       end
     end
-    resources :organizations, only: %i[index create destroy]
+    resources :organizations, only: %i[index create destroy], constraints: { format: "json" }
   end
 end

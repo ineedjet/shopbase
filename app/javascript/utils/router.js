@@ -5,11 +5,11 @@ import Clients from '../components/staff/dashboard/clients'
 import Organizations from '../components/staff/dashboard/organizations'
 
 Vue.use(VueRouter)
-export default new VueRouter( options: {
+export default new VueRouter({
   mode: 'history',
   hashbang: false,
   routes: [
-    { path: '/clients', component: Clients, name: 'Clients' }
+    { path: '/clients', component: Clients, name: 'Clients' },
     { path: '/organizations', component: Organizations, name: 'Organizations' }
   ],
 })
