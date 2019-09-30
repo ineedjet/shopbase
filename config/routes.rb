@@ -20,5 +20,6 @@ Rails.application.routes.draw do
       end
     end
     resources :organizations, only: %i[index create destroy], constraints: { format: "json" }
+    resources :staffs, only: %i[index create destroy], constraints: { format: "json" }
   end
 end

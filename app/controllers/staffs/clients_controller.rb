@@ -35,7 +35,4 @@ class Staffs::ClientsController < ApplicationController
   def errors_json
     @client.errors.as_json
   end
-
-  def serialized_client
-  end
 end
