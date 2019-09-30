@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_30_193629) do
+ActiveRecord::Schema.define(version: 2019_09_30_200155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 2019_09_30_193629) do
     t.index ["uid", "provider"], name: "index_clients_on_uid_and_provider", unique: true
   end
 
+  create_table "clients_organizations", id: false, force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "organization_id", null: false
+    t.index ["client_id", "organization_id"], name: "index_clients_organizations_on_client_id_and_organization_id"
+    t.index ["organization_id", "client_id"], name: "index_clients_organizations_on_organization_id_and_client_id"
+  end
+
   create_table "hardwares", force: :cascade do |t|
     t.string "name"
     t.string "kind"
@@ -49,6 +56,8 @@ ActiveRecord::Schema.define(version: 2019_09_30_193629) do
     t.string "ogrn"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "hardware_id"
+    t.index ["hardware_id"], name: "index_organizations_on_hardware_id"
   end
 
   create_table "staffs", force: :cascade do |t|
@@ -68,4 +77,5 @@ ActiveRecord::Schema.define(version: 2019_09_30_193629) do
     t.index ["uid", "provider"], name: "index_staffs_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "organizations", "hardwares"
 end
