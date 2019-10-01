@@ -16,9 +16,19 @@ export default {
     index: () => adapter.get('/staffs/clients'),
     validate: (client) => adapter.post('/staffs/clients/validate', { client }),
   },
+  staffs: {
+    create: (staff) => adapter.post('/staffs/staffs', { staff }),
+    index: () => adapter.get('/staffs/staffs'),
+    destroy: (id) => adapter.delete(`/staffs/staffs/${id}`),
+  },
   organizations: {
     create: (organization) => adapter.post('/staffs/organizations', { organization }),
     index: () => adapter.get('/staffs/organizations'),
     destroy: (id) => adapter.delete(`/staffs/organizations/${id}`),
-  }
+  },
+  hardwares: {
+    create: (hardware) => adapter.post('/staffs/hardwares', { hardware }),
+    index: () => adapter.get('/staffs/hardwares'),
+    destroy: (id) => adapter.delete(`/staffs/hardwares/${id}`),
+  },
 };

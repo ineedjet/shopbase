@@ -1,4 +1,4 @@
 class StaffSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :id, :fullname, :position
+  attributes :id, :email, :fullname, :position
 end

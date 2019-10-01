@@ -1,4 +1,6 @@
 class Staffs::StaffsController < ApplicationController
+  before_action :authenticate_staff!
+
   def index
     @staffs = Staff.all.order(created_at: :desc)
     render json: StaffSerializer.new(@staffs).serialized_json
@@ -24,7 +26,7 @@ class Staffs::StaffsController < ApplicationController
   private
 
   def staff_params
-    params.require(:staff).permit(:fullname, :phone, :email)
+    params.require(:staff).permit(:fullname, :position, :email)
   end
 
   def errors_json

@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :staffs do
+    get "hardwares/index"
+    get "hardwares/create"
+    get "hardwares/destroy"
+  end
   root "pages#home"
   get "test", to: "pages#test"
 
@@ -21,5 +26,6 @@ Rails.application.routes.draw do
     end
     resources :organizations, only: %i[index create destroy], constraints: { format: "json" }
     resources :staffs, only: %i[index create destroy], constraints: { format: "json" }
+    resources :hardwares, only: %i[index create destroy], constraints: { format: "json" }
   end
 end

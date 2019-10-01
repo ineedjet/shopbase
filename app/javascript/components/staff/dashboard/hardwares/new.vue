@@ -3,7 +3,7 @@
 		h5.font-bold.text-2xl
 		
 		.form-group
-			q-input(v-model.trim="organization.name" label="Название" 
+			q-input(v-model.trim="hardware.name" label="Название" 
 				ref="name"
 				clearable
 				clear-icon="fas fa-window-close"
@@ -12,32 +12,26 @@
 			span.error(v-for="error in errors.name") {{ error }}
 
 		.form-group
-			q-input(v-model.trim="organization.kind" label="Форма организации"
+			q-input(v-model.trim="hardware.kind" label="Тип"
 				ref="kind"
 				clearable
 				clear-icon="fas fa-window-close"
 				:rules="[required]"
 				)
 			span.error(v-for="error in errors.kind") {{ error }}
-		
+
 		.form-group
-			q-input(v-model.number="organization.inn" label="ИНН"
-				ref="inn"
+			q-input(v-model.trim="hardware.number" label="Номер"
+				ref="number"
+				clearable
+				clear-icon="fas fa-window-close"
 				type="number"
 				:rules="[required]"
 				)
-			span.error(v-for="error in errors.inn") {{ error }}
-		
-		.form-group
-			q-input(v-model.number="organization.ogrn" label="ОГРН"
-				ref="ogrn"
-				type="number"
-				:rules="[required]"
-				)
-			span.error(v-for="error in errors.ogrn") {{ error }}
+			span.error(v-for="error in errors.kind") {{ error }}
 
 		.submit
-			q-btn(type="submit" color="primary" label="Create" @click="SaveNewOrganization")
+			q-btn(type="submit" color="primary" label="Create" @click="SaveNewHardware")
 </template>
 
 <script>
@@ -46,45 +40,40 @@ import { required } from '../../../../utils/validations';
 export default {
 	data: function() {
 		return {
-			organization: {
+			hardware: {
 				name: "",
 				kind: "",
-				inn: "",
-				ogrn: ""
+				number: "",
 			},
 			errors: {
 				name: [],
 				kind: [],
-				inn: [],
-				ogrn: []
+				number: [],
 			}
 		};
 	},
 	methods: {
 		ClearForm() {
-			this.organization = {
+			this.hardware = {
 				name: "",
 				kind: "",
-				inn: "",
-				ogrn: ""
+				number: "",
 			};
 			this.errors = {
 				name: [],
 				kind: [],
-				inn: [],
-				ogrn: []
+				number: [],
 			};
 		},
 		SendForm() {
-			this.$api.organizations.
+			this.$api.hardwares.
 					create({
-					name: this.organization.name,
-					kind: this.organization.kind,
-					inn: this.organization.inn,
-					ogrn: this.organization.ogrn
+					name: this.hardware.name,
+					kind: this.hardware.kind,
+					number: this.hardware.number,
 				}).then(
 					response => {
-						this.$eventBus.$emit("createOrganization");
+						this.$eventBus.$emit("createHardware");
 						this.ClearForm();
 						this.$nextTick(() => {
 							this.$refs.form.resetValidation();
@@ -102,16 +91,14 @@ export default {
 					}
 				);
 		},
-		SaveNewOrganization() {
+		SaveNewHardware() {
 			this.$refs.name.validate();
 			this.$refs.kind.validate();
-			this.$refs.inn.validate();
-			this.$refs.ogrn.validate();
+			this.$refs.number.validate();
 
 			if (this.$refs.name.hasError || 
-					this.$refs.kind.hasError || 
-					this.$refs.inn.hasError || 
-					this.$refs.ogrn.hasError) {
+					this.$refs.kind.hasError ||
+					this.$refs.number.hasError) {
         this.$q.notify({
           color: 'negative',
           message: 'Can\'t send it. Some error(s) in form.'

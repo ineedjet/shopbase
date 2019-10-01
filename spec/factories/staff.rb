@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :staff, class: Staff  do
+  factory :staff, class: Staff do
     sequence(:email) { |n| "staff#{n}@gmail.com" }
-    password { 'qwerty' }
-    password_confirmation { 'qwerty' }
+    password { "qwerty" }
+    password_confirmation { "qwerty" }
+    fullname { "Dmitry Dudin" }
+    position { "Director" }
   end
 end

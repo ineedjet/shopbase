@@ -4,6 +4,6 @@ class Organization < ApplicationRecord
   validates :inn, presence: true, numericality: { only_integer: true }
   validates :ogrn, presence: true, numericality: { only_integer: true }
 
-  belongs_to :hardware
+  belongs_to :hardware, required: false
   has_and_belongs_to_many :clients
 end

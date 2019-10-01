@@ -10,7 +10,7 @@ class Staffs::ClientsController < ApplicationController
     @client = Client.new(client_params.merge(password: Devise.friendly_token))
 
     if @client.save
-      render json: ClientSerializer.new(@clients).serialized_json, status: :created
+      render json: ClientSerializer.new(@client).serialized_json, status: :created
     else
       render json: errors_json, status: :unprocessable_entity
     end
