@@ -27,5 +27,7 @@ Rails.application.routes.draw do
     resources :organizations, only: %i[index create destroy], constraints: { format: "json" }
     resources :staffs, only: %i[index create destroy], constraints: { format: "json" }
     resources :hardwares, only: %i[index create destroy], constraints: { format: "json" }
+
+    get "/dashboard/*slug", to: "application#index"
   end
 end

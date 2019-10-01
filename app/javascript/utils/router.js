@@ -11,9 +11,9 @@ export default new VueRouter({
   mode: 'history',
   hashbang: false,
   routes: [
-    { path: '/staffs', component: Staffs, name: 'Staffs' },
-    { path: '/clients', component: Clients, name: 'Clients' },
-    { path: '/organizations', component: Organizations, name: 'Organizations' },
-    { path: '/hardwares', component: Hardwares, name: 'Hardwares' },
+    { path: '/staffs/dashboard/staffs', component: Staffs, name: 'Staffs' },
+    { path: '/staffs/dashboard/clients', component: Clients, name: 'Clients' },
+    { path: '/staffs/dashboard/organizations', component: Organizations, name: 'Organizations' },
+    { path: '/staffs/dashboard/hardwares', component: Hardwares, name: 'Hardwares' },
   ],
 })
