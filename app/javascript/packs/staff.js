@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
       props: {
         userEmail: document.body.getAttribute('data-user-email')
       },
-      router,
-    })
+    }),
+    router,
   }).$mount()
   document.body.appendChild(app.$el)
 })
