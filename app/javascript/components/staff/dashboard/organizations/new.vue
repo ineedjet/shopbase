@@ -119,7 +119,7 @@ export default {
       }else {
         this.SendForm();
         this.$q.notify({
-          icon: 'done',
+          icon: 'fas fa-check',
           color: 'positive',
           message: 'Submitted'
         })

@@ -16,6 +16,16 @@ class Staffs::OrganizationsController < ApplicationController
     end
   end
 
+  def update
+    @organization = Organization.find(params[:id])
+
+    if @organization.update(organization_params)
+      render json: OrganizationSerializer.new(@organization).serialized_json, status: :updated
+    else
+      render json: errors_json, status: :unprocessable_entity
+    end
+  end
+
   def validate
     @organization = Organization.new(organization_params)
 
@@ -30,7 +40,6 @@ class Staffs::OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id])
     @organization.destroy
 
-    # render json: OrganizationSerializer.new(@organization).serialized_json, status: :deleted
     head :no_content
   end
 
@@ -42,8 +51,5 @@ class Staffs::OrganizationsController < ApplicationController
 
   def errors_json
     @organization.errors.as_json
-  end
-
-  def serialized_organization
   end
 end

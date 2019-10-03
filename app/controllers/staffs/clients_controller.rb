@@ -10,7 +10,7 @@ class Staffs::ClientsController < ApplicationController
     @client = Client.new(client_params.merge(password: Devise.friendly_token))
 
     if @client.save
-      render json: ClientSerializer.new(@clients).serialized_json, status: :created
+      render json: ClientSerializer.new(@client).serialized_json, status: :created
     else
       render json: errors_json, status: :unprocessable_entity
     end
@@ -26,6 +26,13 @@ class Staffs::ClientsController < ApplicationController
     end
   end
 
+  def destroy
+    @client = Client.find(params[:id])
+    @client.destroy
+
+    head :no_content
+  end
+
   private
 
   def client_params
@@ -34,8 +41,5 @@ class Staffs::ClientsController < ApplicationController
 
   def errors_json
     @client.errors.as_json
-  end
-
-  def serialized_client
   end
 end

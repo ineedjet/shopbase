@@ -12,6 +12,8 @@ class Client < ApplicationRecord
 
   before_validation :phone_number_keeps_only_numbers
 
+  has_and_belongs_to_many :organizations
+
   private
 
   def phone_number_keeps_only_numbers
