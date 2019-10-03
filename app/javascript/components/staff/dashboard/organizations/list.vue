@@ -1,5 +1,5 @@
 <template lang="pug">
-  q-spinner-bars(v-if="is_loading")
+  q-spinner-bars(v-if="isLoading")
   div(v-else)
     q-table.organizations.shadow.bg-gray-100.my-2.rounded(
         title=""
@@ -17,7 +17,7 @@
 export default {
   data() {
     return {
-      is_loading: true,
+      isLoading: true,
       organizations: this.getOrganizationsList(),
       columns: [
         {
@@ -48,7 +48,7 @@ export default {
         .then(
           (response) => {
             this.organizations = response.data.data.map(i => i.attributes);
-          }).finally(() => (this.is_loading = false));
+          }).finally(() => (this.isLoading = false));
     },
     deleteOrganization(organization) {
       this.$api.organizations
