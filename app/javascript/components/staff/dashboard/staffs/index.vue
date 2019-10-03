@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import StaffNewForm from './new';
-import StaffList from './list';
+import StaffNewForm from './new'
+import StaffList from './list'
 
 export default {
   components: {

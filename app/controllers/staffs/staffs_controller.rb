@@ -16,8 +16,18 @@ class Staffs::StaffsController < ApplicationController
     end
   end
 
+  def update
+    @staff = Staff.find(params[:id])
+
+    if @staff.update(staff_params)
+      render json: StaffSerializer.new(@staff).serialized_json, status: :ok
+    else
+      render json: errors_json, status: :unprocessable_entity
+    end
+  end
+
   def destroy
-    @staff = Organization.find(params[:id])
+    @staff = Staff.find(params[:id])
     @staff.destroy
 
     head :no_content

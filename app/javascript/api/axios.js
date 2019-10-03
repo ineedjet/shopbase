@@ -6,29 +6,34 @@ axios.defaults.headers.common = {
   'X-CSRF-TOKEN': metaCsrfToken ? metaCsrfToken.getAttribute('content') : '',
 };
 
-const adapter = axios.create({
-  baseURL: '/',
+const staffs_adapter = axios.create({
+  baseURL: '/staffs',
 });
 
 export default {
   clients: {
-    create: (client) => adapter.post('/staffs/clients', { client }),
-    index: () => adapter.get('/staffs/clients'),
-    validate: (client) => adapter.post('/staffs/clients/validate', { client }),
+    create: (client) => staffs_adapter.post('/clients', { client }),
+    index: () => staffs_adapter.get('/clients'),
+    update: (id, client) => staffs_adapter.put(`/clients/${id}`, { client }),
+    validate: (client) => staffs_adapter.post('/clients/validate', { client }),
+    destroy: (id) => staffs_adapter.delete(`/clients/${id}`),
   },
   staffs: {
-    create: (staff) => adapter.post('/staffs/staffs', { staff }),
-    index: () => adapter.get('/staffs/staffs'),
-    destroy: (id) => adapter.delete(`/staffs/staffs/${id}`),
+    create: (staff) => staffs_adapter.post('/staffs', { staff }),
+    index: () => staffs_adapter.get('/staffs'),
+    update: (id, staff) => staffs_adapter.put(`/staffs/${id}`, { staff }),
+    destroy: (id) => staffs_adapter.delete(`/staffs/${id}`),
   },
   organizations: {
-    create: (organization) => adapter.post('/staffs/organizations', { organization }),
-    index: () => adapter.get('/staffs/organizations'),
-    destroy: (id) => adapter.delete(`/staffs/organizations/${id}`),
+    create: (organization) => staffs_adapter.post('/organizations', { organization }),
+    index: () => staffs_adapter.get('/organizations'),
+    update: (id, organization) => staffs_adapter.put(`/organizations/${id}`, { organization }),
+    destroy: (id) => staffs_adapter.delete(`/organizations/${id}`),
   },
   hardwares: {
-    create: (hardware) => adapter.post('/staffs/hardwares', { hardware }),
-    index: () => adapter.get('/staffs/hardwares'),
-    destroy: (id) => adapter.delete(`/staffs/hardwares/${id}`),
+    create: (hardware) => staffs_adapter.post('/hardwares', { hardware }),
+    index: () => staffs_adapter.get('/hardwares'),
+    update: (id, hardware) => staffs_adapter.put(`/hardwares/${id}`, { hardware }),
+    destroy: (id) => staffs_adapter.delete(`/hardwares/${id}`),
   },
 };

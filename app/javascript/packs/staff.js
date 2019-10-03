@@ -43,8 +43,15 @@ import {
   QForm,
   QField,
   QInput,
+  QBtnGroup,
   QBtn,
   Notify,
+  QDialog,
+  QCard,
+  QCardSection,
+  QCardActions,
+  QSeparator,
+  ClosePopup,
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -65,12 +72,19 @@ Vue.use(Quasar, {
     QForm,
     QField,
     QInput,
+    QBtnGroup,
     QBtn,
+    QDialog,
+    QCard,
+    QCardSection,
+    QCardActions,
+    QSeparator,
   },
   plugins: {
     Notify,
   },
   directives: {
+    ClosePopup,
   },
   config: {},
   iconSet: iconSet,

@@ -10,11 +10,23 @@
       )
       template(v-slot:body-cell-action="props")
         q-td(:props="props")
-          q-btn(icon="fas fa-trash" @click="deleteStaffs(props.row)" method="delete")
+          q-btn-group
+            q-btn(icon="fas fa-edit" @click="doEditDialog(props.row)")
+            q-btn(icon="fas fa-trash" @click="deleteStaff(props.row)" method="delete")
+    q-dialog(v-model="$route.meta.showDialog" @before-hide="beforeHideDialog()")
+      q-card(style="width: 400px; max-width: 80vw;")
+        router-view(name="editForm")
 </template>
 
 <script>
+import { required, minLength, email } from '../../../../utils/validations';
+import { clone } from '../../../../utils/object';
+import StaffEditForm from './edit'
+
 export default {
+  components: {
+		StaffEditForm,
+	},
   data() {
     return {
       is_loading: true,
@@ -36,7 +48,7 @@ export default {
           sortable: true,
         },
         {
-          name: 'name',
+          name: 'fullname',
           required: true,
           label: 'Name',
           align: 'left',
@@ -50,8 +62,20 @@ export default {
           field: 'position',
           sortable: true,
         },
+        { name: 'action', label: 'actions', align: 'left' }
       ],
+      isShowDialog: this.$route.meta.showDialog,
+      // editRow: {},
     };
+  },
+  watch: {
+    // "$route.meta"({ showDialog }) {
+    //   this.isShowDialog = showDialog;
+    // },
+    // showDialog: function() {
+    //   console.log("this.$route.meta.showDialog = ", this.$route.meta.showDialog);
+    //   console.log("this.showDialog = ", this.showDialog);
+    // }
   },
   methods: {
     getStaffsList() {
@@ -62,28 +86,48 @@ export default {
             this.staffs = response.data.data.map(i => i.attributes);
           }).finally(() => (this.is_loading = false));
     },
+    doEditDialog(row) {
+      // this.editRow = clone(row);
+      this.$router.push({ path: `${this.$route.path}/${row.id}/edit` })
+    },
+    beforeHideDialog(){
+      console.log("afterHideDialog");
+      this.$router.push("/staffs/dashboard/staffs");
+    },
+    escapeKey(){
+      console.log("ESC");
+      this.$router.push("/staffs/dashboard/staffs");
+    },
+    saveStaff() {
+      console.log("SAVE!")
+    },
     deleteStaff(staff) {
       this.$api.staffs
         .destroy(staff.id)
         .then(
           response => {
             this.getStaffsList();
+            this.$q.notify({
+              icon: 'fas fa-trash',
+              color: 'positive',
+              message: 'Successfully deleted'
+            })
           },
           errors => {
             this.$q.notify({
-							color: 'negative',
-							message: errors.response.data
-						});
+              color: 'negative',
+              message: errors.response.data
+            });
           })
     },
+    required,
+    minLength,
+    email,
   },
   mounted() {
-    this.$eventBus.$on('createStaff', () => {
+    this.$eventBus.$on('needUpdateStaffList', () => {
       this.getStaffsList();
     });
   },
 }
 </script>
-
-<style scoped>
-</style>

@@ -26,6 +26,13 @@ class Staffs::ClientsController < ApplicationController
     end
   end
 
+  def destroy
+    @client = Client.find(params[:id])
+    @client.destroy
+
+    head :no_content
+  end
+
   private
 
   def client_params

@@ -26,6 +26,13 @@ class Staffs::HardwaresController < ApplicationController
     end
   end
 
+  def destroy
+    @hardware = Hardware.find(params[:id])
+    @hardware.destroy
+
+    head :no_content
+  end
+
   private
 
   def hardware_params
