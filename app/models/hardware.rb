@@ -5,5 +5,5 @@ class Hardware < ApplicationRecord
                      numericality: { only_integer: true },
                      uniqueness: { case_sensitive: false }
 
-  has_many :organizations
+  belongs_to :organization, required: false
 end

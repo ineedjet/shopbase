@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 2019_09_30_202248) do
     t.string "number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "organization_id"
+    t.index ["organization_id"], name: "index_hardwares_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -56,8 +58,6 @@ ActiveRecord::Schema.define(version: 2019_09_30_202248) do
     t.string "ogrn"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "hardware_id"
-    t.index ["hardware_id"], name: "index_organizations_on_hardware_id"
   end
 
   create_table "staffs", force: :cascade do |t|
@@ -79,5 +79,5 @@ ActiveRecord::Schema.define(version: 2019_09_30_202248) do
     t.index ["uid", "provider"], name: "index_staffs_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "organizations", "hardwares"
+  add_foreign_key "hardwares", "organizations"
 end

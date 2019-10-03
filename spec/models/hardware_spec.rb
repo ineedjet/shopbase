@@ -12,6 +12,6 @@ RSpec.describe Hardware, type: :model do
     it { should validate_numericality_of(:number) }
     it { should validate_uniqueness_of(:number).case_insensitive }
 
-    it { should have_many(:organizations) }
+    it { should belong_to(:organization).optional }
   end
 end
