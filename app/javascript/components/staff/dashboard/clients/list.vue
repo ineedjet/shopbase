@@ -11,6 +11,7 @@
       template(v-slot:body-cell-action="props")
         q-td(:props="props")
           q-btn-group
+            q-btn(icon="fas fa-key" @click="resetPassword(props.row)")
             q-btn(icon="fas fa-edit" @click="doEditDialog(props.row)")
             q-btn(icon="fas fa-trash" @click="deleteClient(props.row)" method="delete")
     q-dialog(v-model="$route.meta.showDialog" @before-hide="beforeHideDialog()")
@@ -87,19 +88,26 @@ export default {
           }).finally(() => (this.is_loading = false));
     },
     doEditDialog(row) {
-      // this.editRow = clone(row);
       this.$router.push({ path: `${this.$route.path}/${row.id}/edit` })
     },
-    beforeHideDialog(){
-      console.log("afterHideDialog");
-      this.$router.push("/clients/dashboard/clients");
-    },
-    escapeKey(){
-      console.log("ESC");
-      this.$router.push("/clients/dashboard/clients");
-    },
-    saveClient() {
-      console.log("SAVE!")
+    resetPassword(row) {
+      this.$api.clients
+        .resetpass(row.id)
+        .then(
+          response => {
+            this.$q.notify({
+              icon: 'fas fa-check',
+              color: 'positive',
+              message: 'Send require for new password'
+            })
+          },
+          errors => {
+            this.$q.notify({
+              color: 'negative',
+              message: errors.response.data
+            });
+          }
+        )
     },
     deleteClient(client) {
       this.$api.clients

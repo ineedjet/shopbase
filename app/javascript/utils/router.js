@@ -27,16 +27,16 @@ export default new VueRouter({
       ]
     },
     { path: '/staffs/dashboard/clients', component: Clients,
-      // children: [
-      //   {
-      //     path: ':id/edit', 
-      //     components: {
-      //       page: Clients,
-      //       editForm: ClientForm,
-      //     },
-      //     meta: { showDialog: true },
-      //   },
-      // ]
+      children: [
+        {
+          path: ':id/edit', 
+          components: {
+            page: Clients,
+            editForm: ClientForm,
+          },
+          meta: { showDialog: true },
+        }
+      ]
     },
     { path: '/staffs/dashboard/organizations', component: Organizations },
     { path: '/staffs/dashboard/hardwares', component: Hardwares, name: 'Hardwares' },

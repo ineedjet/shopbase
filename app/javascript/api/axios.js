@@ -17,12 +17,14 @@ export default {
     update: (id, client) => staffs_adapter.put(`/clients/${id}`, { client }),
     validate: (client) => staffs_adapter.post('/clients/validate', { client }),
     destroy: (id) => staffs_adapter.delete(`/clients/${id}`),
+    resetpass: (id) => staffs_adapter.post(`/clients/${id}/resetpass`),
   },
   staffs: {
     create: (staff) => staffs_adapter.post('/staffs', { staff }),
     index: () => staffs_adapter.get('/staffs'),
     update: (id, staff) => staffs_adapter.put(`/staffs/${id}`, { staff }),
     destroy: (id) => staffs_adapter.delete(`/staffs/${id}`),
+    resetpass: (id) => staffs_adapter.post(`/staffs/${id}/resetpass`),
   },
   organizations: {
     create: (organization) => staffs_adapter.post('/organizations', { organization }),

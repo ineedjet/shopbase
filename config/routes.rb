@@ -23,9 +23,16 @@ Rails.application.routes.draw do
       collection do
         post :validate
       end
+      member do
+        post :resetpass
+      end
     end
     resources :organizations, only: %i[index create update destroy], constraints: { format: "json" }
-    resources :staffs, only: %i[index create update destroy], constraints: { format: "json" }
+    resources :staffs, only: %i[index create update destroy], constraints: { format: "json" } do
+      member do
+        post :resetpass
+      end
+    end
     resources :hardwares, only: %i[index create update destroy], constraints: { format: "json" }
 
     get "/dashboard/*slug", to: "application#index"

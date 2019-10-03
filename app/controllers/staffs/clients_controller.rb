@@ -33,6 +33,10 @@ class Staffs::ClientsController < ApplicationController
     head :no_content
   end
 
+  def resetpass
+    Client.find(params[:id]).send_reset_password_instructions
+  end
+
   private
 
   def client_params
