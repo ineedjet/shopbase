@@ -6,10 +6,25 @@ class Staffs::ClientsController < ApplicationController
     render json: ClientSerializer.new(@clients).serialized_json
   end
 
+  def show
+    @client = Client.find(params[:id])
+    render json: ClientSerializer.new(@client).serialized_json, status: :ok
+  end
+
   def create
     @client = Client.new(client_params.merge(password: Devise.friendly_token))
 
     if @client.save
+      render json: ClientSerializer.new(@client).serialized_json, status: :created
+    else
+      render json: errors_json, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @client = Client.find(params[:id])
+
+    if @client.update(client_params)
       render json: ClientSerializer.new(@client).serialized_json, status: :created
     else
       render json: errors_json, status: :unprocessable_entity

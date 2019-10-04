@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import OrganizationNewForm from './new';
+import OrganizationNewForm from './form';
 import OrganizationList from './list';
 
 export default {

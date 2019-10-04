@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import HardwareNewForm from './new';
+import HardwareNewForm from './form';
 import HardwareList from './list';
 
 export default {

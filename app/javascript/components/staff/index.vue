@@ -1,9 +1,9 @@
 <template lang="pug">
   q-layout(view='hhh lpR fFf')
     Navbar(:userType="'staff'" :userEmail="userEmail")
-    q-drawer.q-ma-sm(show-if-above side="left" bordered content-class="flex flex-col")
+    q-drawer(show-if-above side="left" bordered content-class="flex flex-col bg-gray-900 text-gray-200")
       q-btn(@click="$router.push('/staffs/dashboard/staffs')") Staffs
-      q-btn(@click="$router.push('/staffs/dashboard/clients')") Clients
+      q-btn.bg-gray-700(@click="$router.push('/staffs/dashboard/clients')") Clients
       q-btn(@click="$router.push('/staffs/dashboard/organizations')") Organizations
       q-btn(@click="$router.push('/staffs/dashboard/hardwares')") Hardwares
     q-page-container

@@ -14,6 +14,7 @@ export default {
   clients: {
     create: (client) => staffs_adapter.post('/clients', { client }),
     index: () => staffs_adapter.get('/clients'),
+    show: (id) => staffs_adapter.get(`/clients/${id}`),
     update: (id, client) => staffs_adapter.put(`/clients/${id}`, { client }),
     validate: (client) => staffs_adapter.post('/clients/validate', { client }),
     destroy: (id) => staffs_adapter.delete(`/clients/${id}`),
@@ -22,6 +23,7 @@ export default {
   staffs: {
     create: (staff) => staffs_adapter.post('/staffs', { staff }),
     index: () => staffs_adapter.get('/staffs'),
+    show: (id) => staffs_adapter.get(`/staffs/${id}`),
     update: (id, staff) => staffs_adapter.put(`/staffs/${id}`, { staff }),
     destroy: (id) => staffs_adapter.delete(`/staffs/${id}`),
     resetpass: (id) => staffs_adapter.post(`/staffs/${id}/resetpass`),
@@ -29,12 +31,14 @@ export default {
   organizations: {
     create: (organization) => staffs_adapter.post('/organizations', { organization }),
     index: () => staffs_adapter.get('/organizations'),
+    show: (id) => staffs_adapter.get(`/organizations/${id}`),
     update: (id, organization) => staffs_adapter.put(`/organizations/${id}`, { organization }),
     destroy: (id) => staffs_adapter.delete(`/organizations/${id}`),
   },
   hardwares: {
     create: (hardware) => staffs_adapter.post('/hardwares', { hardware }),
     index: () => staffs_adapter.get('/hardwares'),
+    show: (id) => staffs_adapter.get(`/hardwares/${id}`),
     update: (id, hardware) => staffs_adapter.put(`/hardwares/${id}`, { hardware }),
     destroy: (id) => staffs_adapter.delete(`/hardwares/${id}`),
   },

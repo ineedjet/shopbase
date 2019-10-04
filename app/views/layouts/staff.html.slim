@@ -9,7 +9,7 @@ html
 
     = stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-  body.bg-gray-200 data-user-email="#{current_user.email}"
+  body.bg-gray-700 data-user-email="#{current_user.email}"
     = render 'shared/devise_messages'
     = yield
     

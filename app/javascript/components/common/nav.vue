@@ -1,6 +1,6 @@
 <template lang="pug">
   q-header
-    q-toolbar.flex.justify-between.bg-white.text-gray-800
+    q-toolbar.flex.justify-between.text-gray-800.bg-gray-300
       q-toolbar-title
         a(href="/")
           img.mx-2.my-2.h-8(:src="require('images/shopbase_logo.png')")

@@ -1,6 +1,8 @@
 <template lang="pug">
   q-form.bg-white.m-2.p-4.rounded.shadow-lg(ref='form')
-    h5.font-bold.text-2xl {{ title }}
+    h5.font-bold.text-2xl
+      span(v-if="this.formStaff.id") Edit Staff
+      span(v-else) Create Staff
 
     input(type="hidden" id="id" name="id" :value="formStaff.id")
     
@@ -47,12 +49,10 @@ const emptyStaff = {
 
 export default {
   props: {
-    title: String,
     staff: { 
       type: Object,
       default: function () { return clone(emptyStaff) },
     },
-    action: String,
   },
   data: function() {
     return {
@@ -63,9 +63,6 @@ export default {
         position: [],
       }
     }
-  },
-  created: function() {
-    this.formStaff = clone(this.staff);
   },
   methods: {
     clearForm() {
@@ -82,15 +79,14 @@ export default {
         fullname: this.formStaff.fullname,
         position: this.formStaff.position,
       };
-      if (this.action === "create") {
-        var api_action = this.$api.staffs.create(staffForApi);
-      } else if (this.action === "update") {
-        console.log("this.formStaff.id = ", this.formStaff.id);
-        console.log("staffForApi = ", staffForApi);
+      if (this.formStaff.id) {
         var api_action = this.$api.staffs.update(this.formStaff.id, staffForApi);
+      } else {
+        var api_action = this.$api.staffs.create(staffForApi);
       }
       api_action.then(
         response => {
+          this.$eventBus.$emit('needCloseDialog');
           this.$eventBus.$emit('needUpdateStaffList');
           this.clearForm();
           this.$q.notify({
@@ -128,12 +124,16 @@ export default {
         })
       } else {
         this.sendForm();
-        this.$emit('sended');
       }
     },
     required,
     minLength,
     email,
+  },
+  watch: {
+    staff: function() {
+      this.formStaff = clone(this.staff);
+    }
   }
 }
 </script>

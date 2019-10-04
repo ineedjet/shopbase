@@ -6,10 +6,25 @@ class Staffs::HardwaresController < ApplicationController
     render json: HardwareSerializer.new(@hardwares).serialized_json
   end
 
+  def show
+    @hardware = Hardware.find(params[:id])
+    render json: HardwareSerializer.new(@hardware).serialized_json, status: :ok
+  end
+
   def create
     @hardware = Hardware.new(hardware_params)
 
     if @hardware.save
+      render json: HardwareSerializer.new(@hardware).serialized_json, status: :created
+    else
+      render json: errors_json, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @hardware = Hardware.find(params[:id])
+
+    if @hardware.update(hardware_params)
       render json: HardwareSerializer.new(@hardware).serialized_json, status: :created
     else
       render json: errors_json, status: :unprocessable_entity

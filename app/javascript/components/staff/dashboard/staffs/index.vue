@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import StaffNewForm from './new'
+import StaffNewForm from './form'
 import StaffList from './list'
 
 export default {

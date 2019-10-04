@@ -1,6 +1,8 @@
 <template lang="pug">
-  q-form.bg-white.m-2.p-4.rounded.shadow-lg(ref='form')
-    h5.font-bold.text-2xl {{ title }}
+  q-form.m-2.p-4.rounded.shadow-lg.bg-gray-800.text-gray-100(ref='form')
+    h5.font-bold.text-2xl
+      span(v-if="this.formClient.id") Edit Client
+      span(v-else) Create Client
 
     input(type="hidden" id="id" name="id" :value="formClient.id")
     
@@ -10,6 +12,7 @@
         clearable
         clear-icon="fas fa-window-close"
         :rules="[required, email]"
+        dark outlined
         )
       span.error(v-for="error in errors.email") {{ error }}
 
@@ -19,6 +22,7 @@
         clearable
         clear-icon="fas fa-window-close"
         :rules="[required, val => minLength(val, 5)]"
+        dark outlined
         )
       span.error(v-for="error in errors.fullname") {{ error }}
       
@@ -28,6 +32,7 @@
         clearable
         clear-icon="fas fa-window-close"
         :rules="[required, phoneCheck]"
+        dark outlined
         )
       span.error(v-for="error in errors.phone") {{ error }}
 
@@ -48,12 +53,10 @@ const emptyClient = {
 
 export default {
   props: {
-    title: String,
     client: { 
       type: Object,
       default: function () { return clone(emptyClient) },
     },
-    action: String,
   },
   data: function() {
     return {
@@ -83,13 +86,14 @@ export default {
         fullname: this.formClient.fullname,
         phone: this.formClient.phone,
       };
-      if (this.action === "create") {
-        var api_action = this.$api.clients.create(clientForApi);
-      } else if (this.action === "update") {
+      if (this.formClient.id) {
         var api_action = this.$api.clients.update(this.formClient.id, clientForApi);
+      } else {
+        var api_action = this.$api.clients.create(clientForApi);
       }
       api_action.then(
         response => {
+          this.$eventBus.$emit('needCloseDialog');
           this.$eventBus.$emit('needUpdateClientList');
           this.clearForm();
           this.$q.notify({
@@ -134,6 +138,11 @@ export default {
     minLength,
     email,
     phoneCheck,
+  },
+  watch: {
+    client: function() {
+      this.formClient = clone(this.client);
+    }
   }
 }
 </script>

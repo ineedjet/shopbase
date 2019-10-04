@@ -6,6 +6,11 @@ class Staffs::StaffsController < ApplicationController
     render json: StaffSerializer.new(@staffs).serialized_json
   end
 
+  def show
+    @staff = Staff.find(params[:id])
+    render json: StaffSerializer.new(@staff).serialized_json, status: :ok
+  end
+
   def create
     @staff = Staff.new(staff_params.merge(password: Devise.friendly_token))
 

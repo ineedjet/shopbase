@@ -10,7 +10,10 @@
       )
       template(v-slot:body-cell-action="props")
         q-td(:props="props")
-          q-btn(icon="fas fa-trash" @click="deleteHardware(props.row)" method="delete")
+          q-btn-group
+            q-btn(icon="fas fa-edit" @click="doEditDialog(props.row)")
+            q-btn(icon="fas fa-trash" @click="deleteHardware(props.row)" method="delete")
+    router-view(name="editForm")
 </template>
 
 <script>
@@ -41,6 +44,7 @@ export default {
           label: 'Number',
           field: 'number',
         },
+        { name: 'action', label: 'actions', align: 'left' }
       ],
     };
   },
@@ -53,12 +57,20 @@ export default {
             this.hardwares = response.data.data.map(i => i.attributes);
           }).finally(() => (this.is_loading = false));
     },
-    deleteOrganization(organization) {
+    doEditDialog(row) {
+      this.$router.push({ path: `${this.$route.path}/${row.id}/edit` })
+    },
+    deleteHardware(hardware) {
       this.$api.hardwares
         .destroy(hardware.id)
         .then(
           response => {
             this.getHardwaresList();
+            this.$q.notify({
+              icon: 'fas fa-trash',
+              color: 'positive',
+              message: 'Successfully deleted'
+            })
           },
           errors => {
             this.$q.notify({
@@ -69,7 +81,7 @@ export default {
     },
   },
   mounted() {
-    this.$eventBus.$on('createHardware', () => {
+    this.$eventBus.$on('needUpdateHardwareList', () => {
       this.getHardwaresList();
     });
   },

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ClientNewForm from './new';
+import ClientNewForm from './form';
 import ClientList from './list';
 
 export default {

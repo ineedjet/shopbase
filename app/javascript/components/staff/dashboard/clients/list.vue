@@ -1,12 +1,18 @@
 <template lang="pug">
   q-spinner-bars(v-if="is_loading")
   div(v-else)
-    q-table.clients.shadow.bg-gray-100.my-2.rounded(
+    q-table.clients.shadow.my-2.rounded(
         title=""
         :data="clients"
         :columns="columns"
         row-key="id"
         no-data-label="Empty list of client."
+        table-class="bg-gray-800 text-gray-400"
+        table-header-class="bg-gray-900 text-gray-300"
+        card-style="background: #ec0;"
+        flat
+        bordered
+        color="primary"
       )
       template(v-slot:body-cell-action="props")
         q-td(:props="props")
@@ -14,15 +20,13 @@
             q-btn(icon="fas fa-key" @click="resetPassword(props.row)")
             q-btn(icon="fas fa-edit" @click="doEditDialog(props.row)")
             q-btn(icon="fas fa-trash" @click="deleteClient(props.row)" method="delete")
-    q-dialog(v-model="$route.meta.showDialog" @before-hide="beforeHideDialog()")
-      q-card(style="width: 400px; max-width: 80vw;")
-        router-view(name="editForm")
+    router-view(name="editForm")
 </template>
 
 <script>
 import { required, minLength, email } from '../../../../utils/validations';
 import { clone } from '../../../../utils/object';
-import ClientEditForm from './edit'
+import ClientEditForm from './edit-dialog'
 
 export default {
   components: {

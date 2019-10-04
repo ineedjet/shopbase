@@ -14,20 +14,14 @@
             q-btn(icon="fas fa-key" @click="resetPassword(props.row)")
             q-btn(icon="fas fa-edit" @click="doEditDialog(props.row)")
             q-btn(icon="fas fa-trash" @click="deleteStaff(props.row)" method="delete")
-    q-dialog(v-model="$route.meta.showDialog" @before-hide="beforeHideDialog()")
-      q-card(style="width: 400px; max-width: 80vw;")
-        router-view(name="editForm")
+    router-view(name="editForm")
 </template>
 
 <script>
 import { required, minLength, email } from '../../../../utils/validations';
 import { clone } from '../../../../utils/object';
-import StaffEditForm from './edit'
 
 export default {
-  components: {
-		StaffEditForm,
-	},
   data() {
     return {
       is_loading: true,
@@ -65,18 +59,7 @@ export default {
         },
         { name: 'action', label: 'actions', align: 'left' }
       ],
-      isShowDialog: this.$route.meta.showDialog,
-      // editRow: {},
     };
-  },
-  watch: {
-    // "$route.meta"({ showDialog }) {
-    //   this.isShowDialog = showDialog;
-    // },
-    // showDialog: function() {
-    //   console.log("this.$route.meta.showDialog = ", this.$route.meta.showDialog);
-    //   console.log("this.showDialog = ", this.showDialog);
-    // }
   },
   methods: {
     getStaffsList() {
@@ -88,19 +71,7 @@ export default {
           }).finally(() => (this.is_loading = false));
     },
     doEditDialog(row) {
-      // this.editRow = clone(row);
       this.$router.push({ path: `${this.$route.path}/${row.id}/edit` })
-    },
-    beforeHideDialog(){
-      console.log("afterHideDialog");
-      this.$router.push("/staffs/dashboard/staffs");
-    },
-    escapeKey(){
-      console.log("ESC");
-      this.$router.push("/staffs/dashboard/staffs");
-    },
-    saveStaff() {
-      console.log("SAVE!")
     },
     resetPassword(row) {
       this.$api.staffs

@@ -2,11 +2,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Staffs from '../components/staff/dashboard/staffs'
-import StaffForm from '../components/staff/dashboard/staffs/form'
+import StaffEdit from '../components/staff/dashboard/staffs/edit-dialog'
+
 import Clients from '../components/staff/dashboard/clients'
-import ClientForm from '../components/staff/dashboard/clients/form'
+import ClientEdit from '../components/staff/dashboard/clients/edit-dialog'
+
 import Organizations from '../components/staff/dashboard/organizations'
+import OrganizationEdit from '../components/staff/dashboard/organizations/edit-dialog'
+
 import Hardwares from '../components/staff/dashboard/hardwares'
+import HardwareEdit from '../components/staff/dashboard/hardwares/edit-dialog'
 
 Vue.use(VueRouter)
 export default new VueRouter({
@@ -14,15 +19,12 @@ export default new VueRouter({
   hashbang: false,
   routes: [
     { path: '/staffs/dashboard/staffs', component: Staffs,
-      meta: { showDialog: false },
       children: [
         { 
           path: ':id/edit',
           components: {
-            default: Staffs,
-            editForm: StaffForm,
+            editForm: StaffEdit,
           },
-          meta: { showDialog: true },
         },
       ]
     },
@@ -31,14 +33,30 @@ export default new VueRouter({
         {
           path: ':id/edit', 
           components: {
-            page: Clients,
-            editForm: ClientForm,
+            editForm: ClientEdit,
           },
-          meta: { showDialog: true },
         }
       ]
     },
-    { path: '/staffs/dashboard/organizations', component: Organizations },
-    { path: '/staffs/dashboard/hardwares', component: Hardwares, name: 'Hardwares' },
+    { path: '/staffs/dashboard/organizations', component: Organizations,
+      children: [
+        {
+          path: ':id/edit', 
+          components: {
+            editForm: OrganizationEdit,
+          },
+        }
+      ]
+    },
+    { path: '/staffs/dashboard/hardwares', component: Hardwares,
+      children: [
+        {
+          path: ':id/edit', 
+          components: {
+            editForm: HardwareEdit,
+          },
+        }
+      ]
+    },
   ],
 })
