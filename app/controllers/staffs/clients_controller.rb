@@ -23,6 +23,8 @@ class Staffs::ClientsController < ApplicationController
 
   def update
     @client = Client.find(params[:id])
+    puts("!!!!!!!! = #{params[:client][:organizations]}")
+    puts("!!!!!!!! client_params = #{client_params}")
 
     if @client.update(client_params)
       render json: ClientSerializer.new(@client).serialized_json, status: :created
@@ -55,7 +57,7 @@ class Staffs::ClientsController < ApplicationController
   private
 
   def client_params
-    params.require(:client).permit(:fullname, :phone, :email)
+    params.require(:client).permit(:fullname, :phone, :email, organization_ids: [])
   end
 
   def errors_json

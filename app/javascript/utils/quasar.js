@@ -9,7 +9,6 @@ import '../assets/styles/quasar.styl'
 import 'quasar/dist/quasar.ie.polyfills'
 
 import {
-  Quasar,
   QLayout,
   QHeader,
   QDrawer,
@@ -26,6 +25,7 @@ import {
   QForm,
   QField,
   QInput,
+  QSelect,
   QBtnGroup,
   QBtn,
   Notify,
@@ -55,6 +55,7 @@ export default {
     QForm,
     QField,
     QInput,
+    QSelect,
     QBtnGroup,
     QBtn,
     QDialog,

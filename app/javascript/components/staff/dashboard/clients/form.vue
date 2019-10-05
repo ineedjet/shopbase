@@ -36,6 +36,15 @@
         )
       span.error(v-for="error in errors.phone") {{ error }}
 
+    .form-group
+      q-select(
+        v-model="selectedOrganizations"
+        multiple
+        :options="organizations"
+        label="Организации"
+        dark outlined
+        )
+
     .submit
       q-btn(type="submit" color="primary" label="Save" @click="save()")
 
@@ -49,6 +58,7 @@ const emptyClient = {
       email: '',
       fullname: '',
       phone: '',
+      organizations: '',
     }
 
 export default {
@@ -65,7 +75,14 @@ export default {
         email: [],
         fullname: [],
         phone: [],
-      }
+      },
+      organizations: this.getOrganizations(),
+      selectedOrganizations: null,
+    }
+  },
+  computed: {
+    idsSelectedOrganizations: function() {
+      return Array.from(this.selectedOrganizations, org => {return org.value} );
     }
   },
   created: function() {
@@ -85,6 +102,7 @@ export default {
         email: this.formClient.email,
         fullname: this.formClient.fullname,
         phone: this.formClient.phone,
+        organization_ids: this.idsSelectedOrganizations,
       };
       if (this.formClient.id) {
         var api_action = this.$api.clients.update(this.formClient.id, clientForApi);
@@ -134,6 +152,20 @@ export default {
         this.$emit('sended');
       }
     },
+    getOrganizations() {
+      this.$api.organizations
+        .index()
+        .then(
+          response => {
+            this.organizations = response.data.data.map(i => i.attributes);
+            this.organizations.forEach(org => {
+              // rename keys:
+              delete Object.assign(org, {['label']: org['name'] })['name'];
+              delete Object.assign(org, {['value']: org['id'] })['id'];
+            });
+          }
+        )
+    },
     required,
     minLength,
     email,
@@ -142,6 +174,10 @@ export default {
   watch: {
     client: function() {
       this.formClient = clone(this.client);
+
+      // setup dropdown multi-selector:
+      let organization_ids = Array.from(this.formClient.organizations, org => { return org.id })
+      this.selectedOrganizations = this.organizations.filter(org => { return organization_ids.includes(org.value) });
     }
   }
 }
