@@ -82,7 +82,7 @@ export default {
   },
   computed: {
     idsSelectedOrganizations: function() {
-      return Array.from(this.selectedOrganizations, org => {return org.value} );
+      return Array.from(this.selectedOrganizations, ({value}) => { return value });
     }
   },
   created: function() {
@@ -157,12 +157,12 @@ export default {
         .index()
         .then(
           response => {
-            this.organizations = response.data.data.map(i => i.attributes);
-            this.organizations.forEach(org => {
-              // rename keys:
-              delete Object.assign(org, {['label']: org['name'] })['name'];
-              delete Object.assign(org, {['value']: org['id'] })['id'];
+            this.organizations = response.data.data.map(i => {
+              return { 'value': i.attributes.id, 'label': i.attributes.name };
             });
+            // setup dropdown multi-selector:
+            let local_organization_ids = Array.from(this.formClient.organizations, ({id}) => { return id })
+            this.selectedOrganizations = this.organizations.filter( ({value}) => { return local_organization_ids.includes(value) });
           }
         )
     },
@@ -174,11 +174,7 @@ export default {
   watch: {
     client: function() {
       this.formClient = clone(this.client);
-
-      // setup dropdown multi-selector:
-      let organization_ids = Array.from(this.formClient.organizations, org => { return org.id })
-      this.selectedOrganizations = this.organizations.filter(org => { return organization_ids.includes(org.value) });
-    }
-  }
+    },
+  },
 }
 </script>
