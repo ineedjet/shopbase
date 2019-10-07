@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Staff from '../components/staff'
 import Api from '../api/axios'
 import router from '../utils/router'
+import store from '../store'
 Vue.prototype.$eventBus = new Vue();
 Vue.prototype.$api = Api;
 
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     }),
     router,
+    store,
   }).$mount()
   document.body.appendChild(app.$el)
 })

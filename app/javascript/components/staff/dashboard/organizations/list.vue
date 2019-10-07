@@ -1,6 +1,7 @@
 <template lang="pug">
   q-spinner-bars(v-if="isLoading")
   div(v-else)
+    TableFilter
     q-table.organizations.shadow.bg-gray-100.my-2.rounded(
         title=""
         :data="organizations"
@@ -8,6 +9,9 @@
         row-key="id"
         no-data-label="Empty list of organization."
       )
+      template(v-slot:top)
+        h5(v-if="filter")
+          | Filtered by "{{ filter }}"
       template(v-slot:body-cell-action="props")
         q-td(:props="props")
           q-btn-group
@@ -17,7 +21,12 @@
 </template>
 
 <script>
+import TableFilter from './filter'
+
 export default {
+  components: {
+    TableFilter,
+  },
   data() {
     return {
       isLoading: true,
@@ -43,6 +52,11 @@ export default {
         { name: 'action', label: 'actions', align: 'left' }
       ],
     };
+  },
+  computed: {
+    filter() {
+      return this.$store.state.filter
+    },
   },
   methods: {
     getOrganizationsList() {
