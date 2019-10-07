@@ -89,11 +89,11 @@ export default {
         organization_id: this.selectedOrganization.value,
       };
       if (this.formDevice.id) {
-        var api_action = this.$api.devices.update(this.formDevice.id, deviceForApi);
+        var apiAction = this.$api.devices.update(this.formDevice.id, deviceForApi);
       } else {
-        var api_action = this.$api.devices.create(deviceForApi);
+        var apiAction = this.$api.devices.create(deviceForApi);
       }
-      api_action.then(
+      apiAction.then(
         response => {
           this.$eventBus.$emit('needCloseDialog');
           this.$eventBus.$emit('needUpdateDeviceList');

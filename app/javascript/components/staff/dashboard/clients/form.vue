@@ -105,11 +105,11 @@ export default {
         organization_ids: this.idsSelectedOrganizations,
       };
       if (this.formClient.id) {
-        var api_action = this.$api.clients.update(this.formClient.id, clientForApi);
+        var apiAction = this.$api.clients.update(this.formClient.id, clientForApi);
       } else {
-        var api_action = this.$api.clients.create(clientForApi);
+        var apiAction = this.$api.clients.create(clientForApi);
       }
-      api_action.then(
+      apiAction.then(
         response => {
           this.$eventBus.$emit('needCloseDialog');
           this.$eventBus.$emit('needUpdateClientList');
@@ -161,8 +161,8 @@ export default {
               return { 'value': i.attributes.id, 'label': i.attributes.name };
             });
             // setup dropdown multi-selector:
-            let local_organization_ids = Array.from(this.formClient.organizations, ({id}) => { return id })
-            this.selectedOrganizations = this.organizations.filter( ({value}) => { return local_organization_ids.includes(value) });
+            let localOrganizationIds = Array.from(this.formClient.organizations, ({id}) => { return id })
+            this.selectedOrganizations = this.organizations.filter( ({value}) => { return localOrganizationIds.includes(value) });
           }
         )
     },

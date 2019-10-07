@@ -126,11 +126,11 @@ export default {
         device_ids: this.idsSelectedDevices,
       };
       if (this.formOrganization.id) {
-        var api_action = this.$api.organizations.update(this.formOrganization.id, organizationForApi);
+        var apiAction = this.$api.organizations.update(this.formOrganization.id, organizationForApi);
       } else {
-        var api_action = this.$api.organizations.create(organizationForApi);
+        var apiAction = this.$api.organizations.create(organizationForApi);
       }
-      api_action.then(
+      apiAction.then(
         response => {
           this.$eventBus.$emit('needCloseDialog');
           this.$eventBus.$emit('needUpdateOrganizationList');
@@ -186,8 +186,8 @@ export default {
             });
 
             // setup dropdown multi-selector for Clients:
-            let client_ids = Array.from(this.formOrganization.clients, client => { return client.id })
-            this.selectedClients = this.clients.filter(client => { return client_ids.includes(client.value) });
+            let clientIds = Array.from(this.formOrganization.clients, client => { return client.id })
+            this.selectedClients = this.clients.filter(client => { return clientIds.includes(client.value) });
           }
         )
     },
@@ -201,8 +201,8 @@ export default {
             });
 
             // setup dropdown multi-selector for Devices:
-            let device_ids = Array.from(this.formOrganization.devices, device => { return device.id })
-            this.selectedDevices = this.devices.filter(device => { return device_ids.includes(device.value) });
+            let deviceIds = Array.from(this.formOrganization.devices, device => { return device.id })
+            this.selectedDevices = this.devices.filter(device => { return deviceIds.includes(device.value) });
           }
         )
     },

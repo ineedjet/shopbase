@@ -1,5 +1,5 @@
 <template lang="pug">
-  q-spinner-bars(v-if="is_loading")
+  q-spinner-bars(v-if="isLoading")
   div(v-else)
     q-table.clients.shadow.my-2.rounded(
         title=""
@@ -34,7 +34,7 @@ export default {
 	},
   data() {
     return {
-      is_loading: true,
+      isLoading: true,
       clients: this.getClientsList(),
       columns: [
         {
@@ -89,7 +89,7 @@ export default {
         .then(
           (response) => {
             this.clients = response.data.data.map(i => i.attributes);
-          }).finally(() => (this.is_loading = false));
+          }).finally(() => (this.isLoading = false));
     },
     doEditDialog(row) {
       this.$router.push({ path: `${this.$route.path}/${row.id}/edit` })

@@ -80,11 +80,11 @@ export default {
         position: this.formStaff.position,
       };
       if (this.formStaff.id) {
-        var api_action = this.$api.staffs.update(this.formStaff.id, staffForApi);
+        var apiAction = this.$api.staffs.update(this.formStaff.id, staffForApi);
       } else {
-        var api_action = this.$api.staffs.create(staffForApi);
+        var apiAction = this.$api.staffs.create(staffForApi);
       }
-      api_action.then(
+      apiAction.then(
         response => {
           this.$eventBus.$emit('needCloseDialog');
           this.$eventBus.$emit('needUpdateStaffList');

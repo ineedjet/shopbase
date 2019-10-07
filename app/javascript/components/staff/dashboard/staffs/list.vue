@@ -1,5 +1,5 @@
 <template lang="pug">
-  q-spinner-bars(v-if="is_loading")
+  q-spinner-bars(v-if="isLoading")
   div(v-else)
     q-table.staffs.shadow.bg-gray-100.my-2.rounded(
         title=""
@@ -24,7 +24,7 @@ import { clone } from '../../../../utils/object';
 export default {
   data() {
     return {
-      is_loading: true,
+      isLoading: true,
       staffs: this.getStaffsList(),
       columns: [
         {
@@ -68,7 +68,7 @@ export default {
         .then(
           (response) => {
             this.staffs = response.data.data.map(i => i.attributes);
-          }).finally(() => (this.is_loading = false));
+          }).finally(() => (this.isLoading = false));
     },
     doEditDialog(row) {
       this.$router.push({ path: `${this.$route.path}/${row.id}/edit` })
