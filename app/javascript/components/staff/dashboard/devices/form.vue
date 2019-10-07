@@ -30,8 +30,16 @@
         )
       span.error(v-for="error in errors.number") {{ error }}
 
+    .form-group
+      q-select(
+        v-model="selectedOrganization"
+        :options="organizations"
+        label="Организация"
+        outlined
+        )
+
     .submit
-      q-btn(type="submit" color="primary" label="Create" @click="save()")
+      q-btn(type="submit" color="primary" label="Save" @click="save()")
 </template>
 
 <script>
@@ -42,6 +50,7 @@ const emptyDevice = {
       name: '',
       kind: '',
       number: '',
+      organization: null,
     }
 
 export default {
@@ -58,7 +67,9 @@ export default {
         name: [],
         kind: [],
         number: [],
-      }
+      },
+      organizations: this.getOrganizations(),
+      selectedOrganization: {},
     }
   },
   methods: {
@@ -75,6 +86,7 @@ export default {
         name: this.formDevice.name,
         kind: this.formDevice.kind,
         number: this.formDevice.number,
+        organization_id: this.selectedOrganization.value,
       };
       if (this.formDevice.id) {
         var api_action = this.$api.devices.update(this.formDevice.id, deviceForApi);
@@ -124,6 +136,22 @@ export default {
       } else {
         this.sendForm();
       }
+    },
+    getOrganizations() {
+      this.$api.organizations
+        .index()
+        .then(
+          response => {
+            this.organizations = response.data.data.map(i => {
+              return { 'value': i.attributes.id, 'label': i.attributes.name };
+            });
+            // setup dropdown multi-selector:
+            if (this.formDevice.organization) {
+              let deviceId = this.formDevice.organization.id
+              this.selectedOrganization = this.organizations.find( (org) => { return (deviceId === org.value) });
+            }
+          }
+        )
     },
     required,
   },

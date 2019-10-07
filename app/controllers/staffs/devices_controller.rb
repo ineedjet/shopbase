@@ -51,7 +51,7 @@ class Staffs::DevicesController < ApplicationController
   private
 
   def device_params
-    params.require(:device).permit(:name, :kind, :number)
+    params.require(:device).permit(:name, :kind, :number, :organization_id)
   end
 
   def errors_json

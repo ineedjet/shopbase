@@ -46,6 +46,15 @@
         label="Клиенты"
         outlined
         )
+      
+    .form-group
+      q-select(
+        v-model="selectedDevices"
+        multiple
+        :options="devices"
+        label="Девайсы"
+        outlined
+        )
 
     .submit
       q-btn(type="submit" color="primary" label="Create" @click="save()")
@@ -61,6 +70,7 @@ const emptyOrganization = {
       inn: '',
       ogrn: '',
       clients: '',
+      devices: '',
     }
 
 export default {
@@ -81,12 +91,17 @@ export default {
       },
       clients: this.getClients(),
       selectedClients: null,
+      devices: this.getDevices(),
+      selectedDevices: null,
     }
   },
   computed: {
     idsSelectedClients: function() {
-      return Array.from(this.selectedClients, client => {return client.value} );
-    }
+      return Array.from(this.selectedClients, ({value}) => {return value} );
+    },
+    idsSelectedDevices: function() {
+      return Array.from(this.selectedDevices, ({value}) => {return value} );
+    },
   },
   created: function() {
     this.formOrganization = clone(this.organization);
@@ -108,6 +123,7 @@ export default {
         inn: this.formOrganization.inn,
         ogrn: this.formOrganization.ogrn,
         client_ids: this.idsSelectedClients,
+        device_ids: this.idsSelectedDevices,
       };
       if (this.formOrganization.id) {
         var api_action = this.$api.organizations.update(this.formOrganization.id, organizationForApi);
@@ -169,9 +185,24 @@ export default {
               return { 'label': i.attributes.fullname, 'value': i.attributes.id}
             });
 
-            // setup dropdown multi-selector:
+            // setup dropdown multi-selector for Clients:
             let client_ids = Array.from(this.formOrganization.clients, client => { return client.id })
             this.selectedClients = this.clients.filter(client => { return client_ids.includes(client.value) });
+          }
+        )
+    },
+    getDevices() {
+      this.$api.devices
+        .index()
+        .then(
+          response => {
+            this.devices = response.data.data.map(i => {
+              return { 'label': i.attributes.name, 'value': i.attributes.id}
+            });
+
+            // setup dropdown multi-selector for Devices:
+            let device_ids = Array.from(this.formOrganization.devices, device => { return device.id })
+            this.selectedDevices = this.devices.filter(device => { return device_ids.includes(device.value) });
           }
         )
     },

@@ -51,7 +51,7 @@ class Staffs::OrganizationsController < ApplicationController
   private
 
   def organization_params
-    params.require(:organization).permit(:name, :kind, :inn, :ogrn, client_ids: [])
+    params.require(:organization).permit(:name, :kind, :inn, :ogrn, client_ids: [], device_ids: [])
   end
 
   def errors_json
