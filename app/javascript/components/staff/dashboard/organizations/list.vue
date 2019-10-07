@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     filter() {
-      return this.$store.state.filter
+      return this.$store.state.organizationFilter.filter
     },
   },
   methods: {

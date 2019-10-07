@@ -2,6 +2,7 @@
   q-input(
     label="Поиск"
     v-model.trim="filter"
+    debounce="500"
     dark)
 </template>
 
@@ -10,7 +11,7 @@ export default {
 	computed: {
 		filter: {
 			get() {
-				return this.$store.state.filter;
+				return this.$store.state.organizationFilter.filter;
 			},
 			set(value) {
 				this.$store.commit("updateFilter", value);

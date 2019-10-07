@@ -1,18 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
+import organizationFilter from './modules/organization-filter'
+
 export default new Vuex.Store({
   state: {
-    filter: '',
+    currentUser: null,
   },
-  mutations: {
-    updateFilter(state, value) {
-      state.filter = value;
-    }
-  },
+  mutations: {},
   actions: {},
-  modules: {},
-  plugins: [],
+  modules: {
+    organizationFilter,
+  },
+  plugins: [
+    VuexPersistedState(),
+  ],
 })
