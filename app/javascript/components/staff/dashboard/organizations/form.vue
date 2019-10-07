@@ -1,5 +1,5 @@
 <template lang="pug">
-  q-form.bg-white.m-2.p-4.rounded.shadow-lg(ref='form')
+  q-form.bg-white.m-2.p-4.rounded.shadow-lg(ref='form' style="min-width: 30vw")
     h5.font-bold.text-2xl
       span(v-if="this.formOrganization.id") Edit Organization
       span(v-else) Create Organization
@@ -38,6 +38,15 @@
         )
       span.error(v-for="error in errors.ogrn") {{ error }}
 
+    .form-group
+      q-select(
+        v-model="selectedClients"
+        multiple
+        :options="clients"
+        label="Клиенты"
+        outlined
+        )
+
     .submit
       q-btn(type="submit" color="primary" label="Create" @click="save()")
 </template>
@@ -51,6 +60,7 @@ const emptyOrganization = {
       kind: '',
       inn: '',
       ogrn: '',
+      clients: '',
     }
 
 export default {
@@ -68,8 +78,18 @@ export default {
         kind: [],
         inn: [],
         ogrn: [],
-      }
+      },
+      clients: this.getClients(),
+      selectedClients: null,
     }
+  },
+  computed: {
+    idsSelectedClients: function() {
+      return Array.from(this.selectedClients, client => {return client.value} );
+    }
+  },
+  created: function() {
+    this.formOrganization = clone(this.organization);
   },
   methods: {
     clearForm() {
@@ -87,6 +107,7 @@ export default {
         kind: this.formOrganization.kind,
         inn: this.formOrganization.inn,
         ogrn: this.formOrganization.ogrn,
+        client_ids: this.idsSelectedClients,
       };
       if (this.formOrganization.id) {
         var api_action = this.$api.organizations.update(this.formOrganization.id, organizationForApi);
@@ -138,6 +159,26 @@ export default {
       } else {
         this.sendForm();
       }
+    },
+    getClients() {
+      this.$api.clients
+        .index()
+        .then(
+          response => {
+            this.clients = response.data.data.map(i => {
+              return { 'label': i.attributes.fullname, 'value': i.attributes.id}
+            });
+            // this.clients.forEach(client => {
+            //   // rename keys:
+            //   delete Object.assign(client, {['label']: client['fullname'] })['fullname'];
+            //   delete Object.assign(client, {['value']: client['id'] })['id'];
+            // });
+
+            // setup dropdown multi-selector:
+            let client_ids = Array.from(this.formOrganization.clients, client => { return client.id })
+            this.selectedClients = this.clients.filter(client => { return client_ids.includes(client.value) });
+          }
+        )
     },
     required,
   },

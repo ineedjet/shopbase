@@ -23,8 +23,6 @@ class Staffs::ClientsController < ApplicationController
 
   def update
     @client = Client.find(params[:id])
-    puts("!!!!!!!! = #{params[:client][:organizations]}")
-    puts("!!!!!!!! client_params = #{client_params}")
 
     if @client.update(client_params)
       render json: ClientSerializer.new(@client).serialized_json, status: :created

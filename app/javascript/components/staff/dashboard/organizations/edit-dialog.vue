@@ -1,6 +1,6 @@
 <template lang="pug">
   q-dialog(v-model="isShowDialog" @hide="afterHide()")
-    q-card(style="width: 400px; max-width: 80vw;")
+    q-card(style="width: 500px; max-width: 80vw;")
       OrganizationForm(:organization="organization")
 </template>
 
