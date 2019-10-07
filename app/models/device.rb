@@ -1,4 +1,4 @@
-class Hardware < ApplicationRecord
+class Device < ApplicationRecord
   validates :name, presence: true
   validates :kind, presence: true
   validates :number, presence: true,

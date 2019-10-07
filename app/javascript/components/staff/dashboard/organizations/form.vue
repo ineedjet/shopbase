@@ -168,11 +168,6 @@ export default {
             this.clients = response.data.data.map(i => {
               return { 'label': i.attributes.fullname, 'value': i.attributes.id}
             });
-            // this.clients.forEach(client => {
-            //   // rename keys:
-            //   delete Object.assign(client, {['label']: client['fullname'] })['fullname'];
-            //   delete Object.assign(client, {['value']: client['id'] })['id'];
-            // });
 
             // setup dropdown multi-selector:
             let client_ids = Array.from(this.formOrganization.clients, client => { return client.id })

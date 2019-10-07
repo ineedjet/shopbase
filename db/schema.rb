@@ -41,14 +41,14 @@ ActiveRecord::Schema.define(version: 2019_09_30_202248) do
     t.index ["organization_id", "client_id"], name: "index_clients_organizations_on_organization_id_and_client_id"
   end
 
-  create_table "hardwares", force: :cascade do |t|
+  create_table "devices", force: :cascade do |t|
     t.string "name"
     t.string "kind"
     t.string "number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "organization_id"
-    t.index ["organization_id"], name: "index_hardwares_on_organization_id"
+    t.index ["organization_id"], name: "index_devices_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -79,5 +79,5 @@ ActiveRecord::Schema.define(version: 2019_09_30_202248) do
     t.index ["uid", "provider"], name: "index_staffs_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "hardwares", "organizations"
+  add_foreign_key "devices", "organizations"
 end

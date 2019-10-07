@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Hardware, type: :model do
+RSpec.describe Device, type: :model do
   describe "validations" do
     it { should validate_presence_of(:name) }
 

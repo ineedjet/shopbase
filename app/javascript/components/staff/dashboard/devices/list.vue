@@ -1,18 +1,18 @@
 <template lang="pug">
   q-spinner-bars(v-if="is_loading")
   div(v-else)
-    q-table.hardwares.shadow.bg-gray-100.my-2.rounded(
+    q-table.devices.shadow.bg-gray-100.my-2.rounded(
         title=""
-        :data="hardwares"
+        :data="devices"
         :columns="columns"
         row-key="id"
-        no-data-label="Empty list of hardware."
+        no-data-label="Empty list of device."
       )
       template(v-slot:body-cell-action="props")
         q-td(:props="props")
           q-btn-group
             q-btn(icon="fas fa-edit" @click="doEditDialog(props.row)")
-            q-btn(icon="fas fa-trash" @click="deleteHardware(props.row)" method="delete")
+            q-btn(icon="fas fa-trash" @click="deleteDevice(props.row)" method="delete")
     router-view(name="editForm")
 </template>
 
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       is_loading: true,
-      hardwares: this.getHardwaresList(),
+      devices: this.getDevicesList(),
       columns: [
         {
           name: 'name',
@@ -49,23 +49,23 @@ export default {
     };
   },
   methods: {
-    getHardwaresList() {
-      this.$api.hardwares
+    getDevicesList() {
+      this.$api.devices
         .index()
         .then(
           (response) => {
-            this.hardwares = response.data.data.map(i => i.attributes);
+            this.devices = response.data.data.map(i => i.attributes);
           }).finally(() => (this.is_loading = false));
     },
     doEditDialog(row) {
       this.$router.push({ path: `${this.$route.path}/${row.id}/edit` })
     },
-    deleteHardware(hardware) {
-      this.$api.hardwares
-        .destroy(hardware.id)
+    deleteDevice(device) {
+      this.$api.devices
+        .destroy(device.id)
         .then(
           response => {
-            this.getHardwaresList();
+            this.getDevicesList();
             this.$q.notify({
               icon: 'fas fa-trash',
               color: 'positive',
@@ -81,8 +81,8 @@ export default {
     },
   },
   mounted() {
-    this.$eventBus.$on('needUpdateHardwareList', () => {
-      this.getHardwaresList();
+    this.$eventBus.$on('needUpdateDeviceList', () => {
+      this.getDevicesList();
     });
   },
 }

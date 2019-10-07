@@ -5,7 +5,7 @@
       q-btn(@click="$router.push('/staffs/dashboard/staffs')") Staffs
       q-btn.bg-gray-700(@click="$router.push('/staffs/dashboard/clients')") Clients
       q-btn(@click="$router.push('/staffs/dashboard/organizations')") Organizations
-      q-btn(@click="$router.push('/staffs/dashboard/hardwares')") Hardwares
+      q-btn(@click="$router.push('/staffs/dashboard/devices')") Devices
     q-page-container
       router-view
 </template>

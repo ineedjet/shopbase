@@ -1,29 +1,29 @@
 <template lang="pug">
   q-dialog(v-model="isShowDialog" @hide="afterHide()")
     q-card(style="width: 400px; max-width: 80vw;")
-      HardwareForm(:hardware="hardware")
+      DeviceForm(:device="device")
 </template>
 
 <script>
-import HardwareForm from './form'
+import DeviceForm from './form'
 
 export default {
   components: {
-    HardwareForm,
+    DeviceForm,
 	},
   data: function() {
     return {
       isShowDialog: true,
-      hardware: this.getHardware(),
+      device: this.getDevice(),
     }
   },
   methods: {
-    getHardware() {
-      this.$api.hardwares
+    getDevice() {
+      this.$api.devices
         .show(this.$route.params.id)
         .then(
           response => {
-            this.hardware = response.data.data.attributes;
+            this.device = response.data.data.attributes;
           },
           errors => {
             this.$q.notify({
@@ -34,7 +34,7 @@ export default {
         )
     },
     afterHide() {
-      this.$router.push("/staffs/dashboard/hardwares");
+      this.$router.push("/staffs/dashboard/devices");
     },
   },
   mounted() {

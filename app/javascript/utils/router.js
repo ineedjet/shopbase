@@ -10,8 +10,8 @@ import ClientEdit from '../components/staff/dashboard/clients/edit-dialog'
 import Organizations from '../components/staff/dashboard/organizations'
 import OrganizationEdit from '../components/staff/dashboard/organizations/edit-dialog'
 
-import Hardwares from '../components/staff/dashboard/hardwares'
-import HardwareEdit from '../components/staff/dashboard/hardwares/edit-dialog'
+import Devices from '../components/staff/dashboard/devices'
+import DeviceEdit from '../components/staff/dashboard/devices/edit-dialog'
 
 Vue.use(VueRouter)
 export default new VueRouter({
@@ -48,12 +48,12 @@ export default new VueRouter({
         }
       ]
     },
-    { path: '/staffs/dashboard/hardwares', component: Hardwares,
+    { path: '/staffs/dashboard/devices', component: Devices,
       children: [
         {
           path: ':id/edit', 
           components: {
-            editForm: HardwareEdit,
+            editForm: DeviceEdit,
           },
         }
       ]

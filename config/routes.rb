@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  namespace :staffs do
-    get "hardwares/index"
-    get "hardwares/create"
-    get "hardwares/destroy"
-  end
   root "pages#home"
   get "test", to: "pages#test"
 
@@ -33,7 +28,7 @@ Rails.application.routes.draw do
       end
     end
     resources :organizations, only: %i[index show create update destroy], constraints: { format: "json" }
-    resources :hardwares, only: %i[index show create update destroy], constraints: { format: "json" }
+    resources :devices, only: %i[index show create update destroy], constraints: { format: "json" }
 
     get "/dashboard/*slug", to: "application#index"
   end

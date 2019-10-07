@@ -15,6 +15,6 @@ RSpec.describe Organization, type: :model do
     it { should validate_numericality_of(:ogrn) }
 
     it { should have_and_belong_to_many(:clients) }
-    it { should have_many(:hardwares) }
+    it { should have_many(:devices) }
   end
 end

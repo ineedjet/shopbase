@@ -35,11 +35,11 @@ export default {
     update: (id, organization) => staffs_adapter.put(`/organizations/${id}`, { organization }),
     destroy: (id) => staffs_adapter.delete(`/organizations/${id}`),
   },
-  hardwares: {
-    create: (hardware) => staffs_adapter.post('/hardwares', { hardware }),
-    index: () => staffs_adapter.get('/hardwares'),
-    show: (id) => staffs_adapter.get(`/hardwares/${id}`),
-    update: (id, hardware) => staffs_adapter.put(`/hardwares/${id}`, { hardware }),
-    destroy: (id) => staffs_adapter.delete(`/hardwares/${id}`),
+  devices: {
+    create: (device) => staffs_adapter.post('/devices', { device }),
+    index: () => staffs_adapter.get('/devices'),
+    show: (id) => staffs_adapter.get(`/devices/${id}`),
+    update: (id, device) => staffs_adapter.put(`/devices/${id}`, { device }),
+    destroy: (id) => staffs_adapter.delete(`/devices/${id}`),
   },
 };

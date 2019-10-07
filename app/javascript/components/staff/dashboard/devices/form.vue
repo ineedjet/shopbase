@@ -1,11 +1,11 @@
 <template lang="pug">
   q-form.bg-white.m-2.p-4.rounded.shadow-lg(ref='form')
     h5.font-bold.text-2xl
-      span(v-if="this.formHardware.id") Edit Hardware
-      span(v-else) Create Hardware
+      span(v-if="this.formDevice.id") Edit Device
+      span(v-else) Create Device
     
     .form-group
-      q-input(v-model.trim="formHardware.name" label="Название" 
+      q-input(v-model.trim="formDevice.name" label="Название" 
         ref="name"
         clearable
         clear-icon="fas fa-window-close"
@@ -14,7 +14,7 @@
       span.error(v-for="error in errors.name") {{ error }}
 
     .form-group
-      q-input(v-model.trim="formHardware.kind" label="Тип оборудования"
+      q-input(v-model.trim="formDevice.kind" label="Тип оборудования"
         ref="kind"
         clearable
         clear-icon="fas fa-window-close"
@@ -23,7 +23,7 @@
       span.error(v-for="error in errors.kind") {{ error }}
     
     .form-group
-      q-input(v-model.number="formHardware.number" label="Номер"
+      q-input(v-model.number="formDevice.number" label="Номер"
         ref="number"
         type="number"
         :rules="[required]"
@@ -38,7 +38,7 @@
 import { required } from '../../../../utils/validations';
 import { clone } from '../../../../utils/object';
 
-const emptyHardware = {
+const emptyDevice = {
       name: '',
       kind: '',
       number: '',
@@ -46,14 +46,14 @@ const emptyHardware = {
 
 export default {
   props: {
-    hardware: { 
+    device: { 
       type: Object,
-      default: function () { return clone(emptyHardware) },
+      default: function () { return clone(emptyDevice) },
     },
   },
   data: function() {
     return {
-      formHardware: {},
+      formDevice: {},
       errors: {
         name: [],
         kind: [],
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     clearForm() {
-      this.formHardware = clone(emptyHardware);
+      this.formDevice = clone(emptyDevice);
       this.errors = {
         name: [],
         kind: [],
@@ -71,20 +71,20 @@ export default {
       };
     },
     sendForm() {
-      let hardwareForApi = {
-        name: this.formHardware.name,
-        kind: this.formHardware.kind,
-        number: this.formHardware.number,
+      let deviceForApi = {
+        name: this.formDevice.name,
+        kind: this.formDevice.kind,
+        number: this.formDevice.number,
       };
-      if (this.formHardware.id) {
-        var api_action = this.$api.hardwares.update(this.formHardware.id, hardwareForApi);
+      if (this.formDevice.id) {
+        var api_action = this.$api.devices.update(this.formDevice.id, deviceForApi);
       } else {
-        var api_action = this.$api.hardwares.create(hardwareForApi);
+        var api_action = this.$api.devices.create(deviceForApi);
       }
       api_action.then(
         response => {
           this.$eventBus.$emit('needCloseDialog');
-          this.$eventBus.$emit('needUpdateHardwareList');
+          this.$eventBus.$emit('needUpdateDeviceList');
           this.clearForm();
           this.$q.notify({
             icon: 'fas fa-check',
@@ -128,8 +128,8 @@ export default {
     required,
   },
   watch: {
-    hardware: function() {
-      this.formHardware = clone(this.hardware);
+    device: function() {
+      this.formDevice = clone(this.device);
     }
   }
 }
