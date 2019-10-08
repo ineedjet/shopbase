@@ -27,76 +27,25 @@ export default {
   components: {
     TableFilter,
   },
-  data() {
-    return {
-      isLoading: true,
-      organizations: this.getOrganizationsList(),
-      columns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Name',
-          align: 'left',
-          field: 'name',
-          sortable: true,
-        },
-        {
-          name: 'kind',
-          align: 'left',
-          label: 'Type',
-          field: 'kind',
-          sortable: true,
-        },
-        { name: 'inn', label: 'INN', field: 'inn' },
-        { name: 'ogrn', label: 'OGRN', field: 'ogrn' },
-        { name: 'action', label: 'actions', align: 'left' }
-      ],
-    };
-  },
   computed: {
-    filter() {
-      return this.$store.state.organizationFilter.filter
-    },
+    filter()        { return this.$store.state.organizationFilter.filter },
+    columns()       { return this.$store.state.organizations.columns },
+    organizations() { return this.$store.state.organizations.organizations },
+    isLoading()     { return this.$store.state.organizations.isLoading },
   },
   methods: {
-    getOrganizationsList() {
-      this.$api.organizations
-        .index()
-        .then(
-          (response) => {
-            this.organizations = response.data.data.map(i => i.attributes);
-          }).finally(() => (this.isLoading = false));
-    },
     doEditDialog(row) {
       this.$router.push({ path: `${this.$route.path}/${row.id}/edit` })
     },
     deleteOrganization(organization) {
-      this.$api.organizations
-        .destroy(organization.id)
-        .then(
-          response => {
-            this.getOrganizationsList();
-            this.$q.notify({
-              icon: 'fas fa-trash',
-              color: 'positive',
-              message: 'Successfully deleted'
-            })
-          },
-          errors => {
-            this.$q.notify({
-							color: 'negative',
-							message: errors.response.data
-						});
-          })
-    },
+      this.$store.dispatch('deleteOrganization', organization.id)
+    }
   },
-  mounted() {
+  created() {
+    this.$store.dispatch('indexOrganizations')
     this.$eventBus.$on('needUpdateOrganizationList', () => {
-      this.getOrganizationsList();
+      this.$store.dispatch('indexOrganizations')
     });
   },
 }
 </script>
-
-<style scoped>
-</style>

@@ -4,6 +4,7 @@ import VuexPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
+import organizations from './modules/organizations'
 import organizationFilter from './modules/organization-filter'
 
 export default new Vuex.Store({
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
+    organizations,
     organizationFilter,
   },
   plugins: [

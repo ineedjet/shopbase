@@ -10,12 +10,8 @@
 export default {
 	computed: {
 		filter: {
-			get() {
-				return this.$store.state.organizationFilter.filter;
-			},
-			set(value) {
-				this.$store.commit("updateFilter", value);
-			}
+			get() { return this.$store.state.organizationFilter.filter },
+			set(value) { this.$store.commit("updateFilter", value) },
 		}
 	}
 };
