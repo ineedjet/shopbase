@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Navbar from '../common/nav';
+import Navbar from 'common/nav';
 
 export default {
   components: {

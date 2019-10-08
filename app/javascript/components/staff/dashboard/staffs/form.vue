@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import { required, minLength, email } from '../../../../utils/validations';
-import { clone } from '../../../../utils/object';
+import { required, minLength, email } from 'utils/validations';
+import { clone } from 'utils/object';
 
 const emptyStaff = {
       email: '',
