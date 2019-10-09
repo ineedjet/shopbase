@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs';
 
 const metaCsrfToken = document.querySelector('meta[name="csrf-token"]');
 axios.defaults.headers.common = {
@@ -30,7 +31,7 @@ export default {
   },
   organizations: {
     create: (organization) => staffs_adapter.post('/organizations', { organization }),
-    index: () => staffs_adapter.get('/organizations'),
+    index: (props) => staffs_adapter.get('/organizations?' + qs.stringify(props)),
     show: (id) => staffs_adapter.get(`/organizations/${id}`),
     update: (id, organization) => staffs_adapter.put(`/organizations/${id}`, { organization }),
     destroy: (id) => staffs_adapter.delete(`/organizations/${id}`),
