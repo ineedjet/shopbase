@@ -25,6 +25,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "actioncable-vue": "^1.4.0",
     "precss": "^4.0.0",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
