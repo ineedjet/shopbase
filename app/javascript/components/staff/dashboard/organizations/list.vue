@@ -65,5 +65,23 @@ export default {
       this.$refs.table.requestServerInteraction()
     });
   },
+  mounted(){
+    this.$cable.subscribe({ channel: 'StaffChannel', room: 'organizations' });
+  },
+  channels: {
+    StaffChannel: {
+      connected() {
+        console.log("! connected")
+      },
+      rejected() {},
+      received(data) {
+        console.log("! data received = ", data)
+        this.$refs.table.requestServerInteraction()
+      },
+      disconnected() {
+        console.log("! disconnected")
+      },
+    }
+  },
 }
 </script>

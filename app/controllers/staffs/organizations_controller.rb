@@ -8,7 +8,7 @@ class Staffs::OrganizationsController < ApplicationController
       descending: params[:order] || false,
       page: params[:page] || 1,
       rowsPerPage: params[:rowsPerPage] || 5,
-      rowsNumber: @organizations.count,
+      rowsNumber: Organization.count,
     }, filter: params[:filter] }
     render json: OrganizationSerializer.new(@organizations, { meta: meta }).serialized_json
   end

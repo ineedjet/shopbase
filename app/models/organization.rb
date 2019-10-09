@@ -15,4 +15,10 @@ class Organization < ApplicationRecord
     return [] unless query
     search_by("#{query}")
   end
+
+  after_save :broadcast
+
+  def broadcast
+    ActionCable.server.broadcast("organizations", content: { organization: self })
+  end
 end
