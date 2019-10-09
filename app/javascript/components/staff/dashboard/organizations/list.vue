@@ -1,14 +1,20 @@
 <template lang="pug">
-  q-spinner-bars(v-if="isLoading")
-  div(v-else)
+  div
     TableFilter
     q-table.organizations.shadow.bg-gray-100.my-2.rounded(
-        title=""
-        :data="organizations"
-        :columns="columns"
-        row-key="id"
-        no-data-label="Empty list of organization."
-      )
+      title=""
+      ref="table"
+      :data="organizations"
+      :columns="columns"
+      :filter="filter"
+      row-key="id"
+      binary-state-sort
+      :rows-per-page-options="[5,10,20,100]"
+      :loading="isLoading"
+      :pagination.sync="pagination"
+      @request="requestData"
+      no-data-label="Empty list of organization."
+    )
       template(v-slot:top)
         h5(v-if="filter")
           | Filtered by "{{ filter }}"
@@ -30,10 +36,19 @@ export default {
   computed: {
     filter()        { return this.$store.state.organizationFilter.filter },
     columns()       { return this.$store.state.organizations.columns },
-    organizations() { return this.$store.state.organizations.organizations },
+    organizations() { return this.$store.state.organizations.data },
+    pagination:     {
+                      get() { return this.$store.state.organizations.pagination},
+                      set(value) { this.$store.commit("updatePagination",value) }
+                    },
     isLoading()     { return this.$store.state.organizations.isLoading },
   },
   methods: {
+    requestData(requestProp){
+      let { page, rowsPerPage, sortBy, descending } = requestProp.pagination
+      let filter = requestProp.filter
+      this.$store.dispatch('indexOrganizations', { page, rowsPerPage, sortBy, descending, filter })
+    },
     doEditDialog(row) {
       this.$router.push({ path: `${this.$route.path}/${row.id}/edit` })
     },
@@ -42,9 +57,12 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('indexOrganizations')
+    this.requestData({
+      pagination: this.pagination,
+      filter: undefined
+    });
     this.$eventBus.$on('needUpdateOrganizationList', () => {
-      this.$store.dispatch('indexOrganizations')
+      this.$refs.table.requestServerInteraction()
     });
   },
 }

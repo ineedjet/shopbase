@@ -1,7 +1,7 @@
 export default {
   state: {
     isLoading: false,
-    organizations: [],
+    data: [],
     columns: [
       {
         name: 'name',
@@ -22,19 +22,34 @@ export default {
       { name: 'ogrn', label: 'OGRN', field: 'ogrn' },
       { name: 'action', label: 'actions', align: 'left' }
     ],
+    pagination: {
+      sortBy: 'name',
+      descending: false,
+      page: 1,
+      rowsPerPage: 5,
+      rowsNumber: 99999,
+    },
   },
   mutations: {
     updateOrganizations(state, organizations) {
-      state.organizations = organizations;
+      state.data = organizations;
+    },
+    updatePagination(state, pagination) {
+      state.pagination = pagination;
+      state.pagination.page = Number(state.pagination.page);
+    },
+    updateRowsNumber(state, count) {
+      state.pagination.rowsNumber = count;
     }
   },
   actions: {
-    indexOrganizations(context){
+    indexOrganizations(context, params){
       this._vm.$api.organizations
-        .index()
+        .index(params)
         .then(
           (response) => {
             context.commit('updateOrganizations', response.data.data.map(i => i.attributes));
+            context.commit('updatePagination', response.data.meta.pagination);
           }).finally(() => (context.state.isLoading = false));
     },
     deleteOrganization(context, id){
@@ -42,7 +57,7 @@ export default {
         .destroy(id)
         .then(
           response => {
-            dispatch('indexOrganizations');
+            context.dispatch('indexOrganizations');
             this.$q.notify({
               icon: 'fas fa-trash',
               color: 'positive',

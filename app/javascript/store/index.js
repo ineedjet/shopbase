@@ -18,6 +18,6 @@ export default new Vuex.Store({
     organizationFilter,
   },
   plugins: [
-    VuexPersistedState(),
+    // VuexPersistedState(),
   ],
 })
