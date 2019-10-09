@@ -70,17 +70,7 @@ export default {
         { name: 'action', label: 'actions', align: 'left' }
       ],
       isShowDialog: this.$route.meta.showDialog,
-      // editRow: {},
     };
-  },
-  watch: {
-    // "$route.meta"({ showDialog }) {
-    //   this.isShowDialog = showDialog;
-    // },
-    // showDialog: function() {
-    //   console.log("this.$route.meta.showDialog = ", this.$route.meta.showDialog);
-    //   console.log("this.showDialog = ", this.showDialog);
-    // }
   },
   methods: {
     getClientsList() {

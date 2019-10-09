@@ -1,12 +1,9 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
     identified_by :current_user
-    # identified_by :random_id
 
     def connect
       self.current_user = find_verified_user
-      # byebug
-      # self.random_id = SecureRandom.urlsafe_base64
     end
 
     private
