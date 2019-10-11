@@ -4,7 +4,10 @@ class Staffs::OrganizationsController < ApplicationController
   def index
     find_organizations = FindOrganizations.new(Organization.all, params)
     @organizations = find_organizations.call(search_permitted_params)
-    render json: OrganizationSerializer.new(@organizations, { meta: find_organizations.meta }).serialized_json
+    org_presenter_meta = OrganizationPresenter.new().meta
+    meta = find_organizations.meta.merge(org_presenter_meta)
+    
+    render json: OrganizationSerializer.new(@organizations, { meta: meta }).serialized_json
   end
 
   def show

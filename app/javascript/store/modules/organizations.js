@@ -2,33 +2,9 @@ export default {
   state: {
     isLoading: false,
     data: [],
-    columns: [
-      {
-        name: 'name',
-        required: true,
-        label: 'Name',
-        align: 'left',
-        field: 'name',
-        sortable: true,
-      },
-      {
-        name: 'kind',
-        align: 'left',
-        label: 'Type',
-        field: 'kind',
-        sortable: true,
-      },
-      { name: 'inn', label: 'INN', field: 'inn' },
-      { name: 'ogrn', label: 'OGRN', field: 'ogrn' },
-      { name: 'action', label: 'actions', align: 'left' }
-    ],
-    pagination: {
-      sortBy: 'name',
-      descending: false,
-      page: 1,
-      rowsPerPage: 5,
-      rowsNumber: 99999,
-    },
+    columns: [],
+    pagination: {},
+    actions: [],
   },
   mutations: {
     updateOrganizations(state, organizations) {
@@ -37,6 +13,12 @@ export default {
     updatePagination(state, pagination) {
       state.pagination = pagination;
       state.pagination.page = Number(state.pagination.page);
+    },
+    updateColumns(state, value) {
+      state.columns = value
+    },
+    updateActions(state, value) {
+      state.actions = value
     },
     updateRowsNumber(state, count) {
       state.pagination.rowsNumber = count;
@@ -50,22 +32,24 @@ export default {
           (response) => {
             context.commit('updateOrganizations', response.data.data.map(i => i.attributes));
             context.commit('updatePagination', response.data.meta.pagination);
+            context.commit('updateColumns', response.data.meta.columns);
+            context.commit('updateActions', response.data.meta.actions);
           }).finally(() => (context.state.isLoading = false));
     },
     deleteOrganization(context, id){
-      this.$api.organizations
+      this._vm.$api.organizations
         .destroy(id)
         .then(
           response => {
             context.dispatch('indexOrganizations');
-            this.$q.notify({
+            this._vm.$q.notify({
               icon: 'fas fa-trash',
               color: 'positive',
               message: 'Successfully deleted'
             })
           },
           errors => {
-            this.$q.notify({
+            this._vm.$q.notify({
 							color: 'negative',
 							message: errors.response.data
 						});

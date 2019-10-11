@@ -21,8 +21,11 @@
       template(v-slot:body-cell-action="props")
         q-td(:props="props")
           q-btn-group
-            q-btn(icon="fas fa-edit" @click="doEditDialog(props.row)")
-            q-btn(icon="fas fa-trash" @click="deleteOrganization(props.row)" method="delete")
+            q-btn(
+              v-for="action in actions"
+              :icon="action.icon"
+              @click="doAction(action.name,props.row)"
+            )
     router-view(name="editForm")
 </template>
 
@@ -42,6 +45,7 @@ export default {
                       set(value) { this.$store.commit("updatePagination",value) }
                     },
     isLoading()     { return this.$store.state.organizations.isLoading },
+    actions()     { return this.$store.state.organizations.actions },
   },
   methods: {
     requestData(requestProp){
@@ -49,10 +53,13 @@ export default {
       let filter = requestProp.filter
       this.$store.dispatch('indexOrganizations', { page, rowsPerPage, sortBy, descending, filter })
     },
-    doEditDialog(row) {
-      this.$router.push({ path: `${this.$route.path}/${row.id}/edit` })
+    doAction(actionName, row){
+      if (typeof this[actionName] === 'function') this[actionName](row)
     },
-    deleteOrganization(organization) {
+    edit(organization) {
+      this.$router.push({ path: `${this.$route.path}/${organization.id}/edit` })
+    },
+    delete(organization) {
       this.$store.dispatch('deleteOrganization', organization.id)
     }
   },
@@ -75,7 +82,6 @@ export default {
       },
       rejected() {},
       received(data) {
-        console.log("! data received = ", data)
         this.$refs.table.requestServerInteraction()
       },
       disconnected() {
