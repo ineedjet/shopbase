@@ -2,15 +2,9 @@ class Staffs::OrganizationsController < ApplicationController
   before_action :authenticate_staff!
 
   def index
-    @organizations = FindOrganizations.new(Organization.all).call(search_permitted_params)
-    meta = { pagination: {
-      sortBy: params[:sortBy] || :name,
-      descending: params[:order] || false,
-      page: params[:page] || 1,
-      rowsPerPage: params[:rowsPerPage] || 5,
-      rowsNumber: Organization.count,
-    }, filter: params[:filter] }
-    render json: OrganizationSerializer.new(@organizations, { meta: meta }).serialized_json
+    find_organizations = FindOrganizations.new(Organization.all, params)
+    @organizations = find_organizations.call(search_permitted_params)
+    render json: OrganizationSerializer.new(@organizations, { meta: find_organizations.meta }).serialized_json
   end
 
   def show
