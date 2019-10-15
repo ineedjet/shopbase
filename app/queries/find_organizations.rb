@@ -29,9 +29,8 @@ class FindOrganizations
 
   def sort(scoped)
     @pagination[:sortBy] = @params[:sortBy] || :name
-    @pagination[:descending] = @params[:order] || :desc
-    @pagination[:descending] = "desc" unless ["asc", "desc"].include?(@pagination[:descending].downcase)
-    scoped.order(@pagination[:sortBy] => @pagination[:descending])
+    @pagination[:descending] = (@params[:descending].to_s.downcase == "true").to_s
+    scoped.order(@pagination[:sortBy] => (@pagination[:descending] == "true" ? :desc : :asc))
   end
 
   def paginate(scoped) #, page_number, rowsPerPage

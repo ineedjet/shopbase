@@ -15,7 +15,7 @@ class OrganizationPresenter < BasePresenter
   end
 
   def columns_keys
-    columns.map { |column| column[:name] }
+    COLUMNS.map { |column| column[:name] }
   end
 
   def actions

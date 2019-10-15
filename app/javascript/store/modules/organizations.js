@@ -13,6 +13,7 @@ export default {
     updatePagination(state, pagination) {
       state.pagination = pagination;
       state.pagination.page = Number(state.pagination.page);
+      state.pagination.descending = (state.pagination.descending === "true");
     },
     updateColumns(state, value) {
       state.columns = value
