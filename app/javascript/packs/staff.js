@@ -1,13 +1,20 @@
 import Vue from 'vue'
-import Staff from '../components/staff'
-import Api from '../api/axios'
-import router from '../utils/router'
 Vue.prototype.$eventBus = new Vue();
+
+import Staff from '../components/staff'
+import router from '../utils/router'
+import store from '../store'
+
+import Api from '../api/axios'
 Vue.prototype.$api = Api;
 
 import { Quasar } from 'quasar'
 import quasarParams from '../utils/quasar'
 Vue.use(Quasar, quasarParams);
+
+import ActionCableVue from 'actioncable-vue';
+import cableParams from '../utils/action-cable'
+Vue.use(ActionCableVue, cableParams);
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
@@ -17,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     }),
     router,
+    store,
   }).$mount()
   document.body.appendChild(app.$el)
 })

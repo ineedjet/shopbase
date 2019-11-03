@@ -57,12 +57,12 @@
         )
 
     .submit
-      q-btn(type="submit" color="primary" label="Create" @click="save()")
+      q-btn(type="submit" color="primary" label="Save" @click="save()")
 </template>
 
 <script>
-import { required } from '../../../../utils/validations';
-import { clone } from '../../../../utils/object';
+import { required } from 'utils/validations';
+import { clone } from 'utils/object';
 
 const emptyOrganization = {
       name: '',

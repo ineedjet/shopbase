@@ -1,88 +1,93 @@
 <template lang="pug">
-  q-spinner-bars(v-if="isLoading")
-  div(v-else)
+  div
+    TableFilter
     q-table.organizations.shadow.bg-gray-100.my-2.rounded(
-        title=""
-        :data="organizations"
-        :columns="columns"
-        row-key="id"
-        no-data-label="Empty list of organization."
-      )
+      title=""
+      ref="table"
+      :data="organizations"
+      :columns="columns"
+      :filter="filter"
+      row-key="id"
+      binary-state-sort
+      :rows-per-page-options="[5,10,20,100]"
+      :loading="isLoading"
+      :pagination.sync="pagination"
+      @request="requestData"
+      no-data-label="Empty list of organization."
+    )
+      template(v-slot:top)
+        h5(v-if="filter")
+          | Filtered by "{{ filter }}"
       template(v-slot:body-cell-action="props")
         q-td(:props="props")
           q-btn-group
-            q-btn(icon="fas fa-edit" @click="doEditDialog(props.row)")
-            q-btn(icon="fas fa-trash" @click="deleteOrganization(props.row)" method="delete")
+            q-btn(
+              v-for="action in actions"
+              :icon="action.icon"
+              @click="doAction(action.name,props.row)"
+            )
     router-view(name="editForm")
 </template>
 
 <script>
+import TableFilter from './filter'
+
 export default {
-  data() {
-    return {
-      isLoading: true,
-      organizations: this.getOrganizationsList(),
-      columns: [
-        {
-          name: 'name',
-          required: true,
-          label: 'Name',
-          align: 'left',
-          field: 'name',
-          sortable: true,
-        },
-        {
-          name: 'kind',
-          align: 'left',
-          label: 'Type',
-          field: 'kind',
-          sortable: true,
-        },
-        { name: 'inn', label: 'INN', field: 'inn' },
-        { name: 'ogrn', label: 'OGRN', field: 'ogrn' },
-        { name: 'action', label: 'actions', align: 'left' }
-      ],
-    };
+  components: {
+    TableFilter,
+  },
+  computed: {
+    filter()        { return this.$store.state.organizationFilter.filter },
+    columns()       { return this.$store.state.organizations.columns },
+    organizations() { return this.$store.state.organizations.data },
+    pagination:     {
+                      get() { return this.$store.state.organizations.pagination},
+                      set(value) { this.$store.commit("updatePagination",value) }
+                    },
+    isLoading()     { return this.$store.state.organizations.isLoading },
+    actions()     { return this.$store.state.organizations.actions },
   },
   methods: {
-    getOrganizationsList() {
-      this.$api.organizations
-        .index()
-        .then(
-          (response) => {
-            this.organizations = response.data.data.map(i => i.attributes);
-          }).finally(() => (this.isLoading = false));
+    requestData(requestProp){
+      let { page, rowsPerPage, sortBy, descending } = requestProp.pagination
+      let filter = requestProp.filter
+      this.$store.dispatch('indexOrganizations', { page, rowsPerPage, sortBy, descending, filter })
     },
-    doEditDialog(row) {
-      this.$router.push({ path: `${this.$route.path}/${row.id}/edit` })
+    doAction(actionName, row){
+      if (typeof this[actionName] === 'function') this[actionName](row)
     },
-    deleteOrganization(organization) {
-      this.$api.organizations
-        .destroy(organization.id)
-        .then(
-          response => {
-            this.getOrganizationsList();
-            this.$q.notify({
-              icon: 'fas fa-trash',
-              color: 'positive',
-              message: 'Successfully deleted'
-            })
-          },
-          errors => {
-            this.$q.notify({
-							color: 'negative',
-							message: errors.response.data
-						});
-          })
+    edit(organization) {
+      this.$router.push({ path: `${this.$route.path}/${organization.id}/edit` })
     },
+    delete(organization) {
+      this.$store.dispatch('deleteOrganization', organization.id)
+    }
   },
-  mounted() {
-    this.$eventBus.$on('needUpdateOrganizationList', () => {
-      this.getOrganizationsList();
+  created() {
+    this.requestData({
+      pagination: this.pagination,
+      filter: undefined
     });
+    this.$eventBus.$on('needUpdateOrganizationList', () => {
+      this.$refs.table.requestServerInteraction()
+    });
+  },
+  mounted(){
+    this.$cable.subscribe({ channel: 'StaffChannel', room: 'organizations' });
+  },
+  channels: {
+    StaffChannel: {
+      connected() {
+        console.log("! connected")
+      },
+      rejected() {},
+      received(data) {
+        this.$refs.table.requestServerInteraction()
+      },
+      disconnected() {
+        console.log("! disconnected")
+      },
+    }
   },
 }
 </script>
-
-<style scoped>
-</style>

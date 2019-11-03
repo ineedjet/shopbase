@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import { required } from '../../../../utils/validations';
-import { clone } from '../../../../utils/object';
+import { required } from 'utils/validations';
+import { clone } from 'utils/object';
 
 const emptyDevice = {
       name: '',

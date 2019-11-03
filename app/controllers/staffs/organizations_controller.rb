@@ -2,8 +2,12 @@ class Staffs::OrganizationsController < ApplicationController
   before_action :authenticate_staff!
 
   def index
-    @organizations = Organization.all.order(created_at: :desc)
-    render json: OrganizationSerializer.new(@organizations).serialized_json
+    find_organizations = FindOrganizations.new(Organization.all, params)
+    @organizations = find_organizations.call(search_permitted_params)
+    org_presenter_meta = OrganizationPresenter.new().meta
+    meta = find_organizations.meta.merge(org_presenter_meta)
+    
+    render json: OrganizationSerializer.new(@organizations, { meta: meta }).serialized_json
   end
 
   def show
@@ -52,6 +56,10 @@ class Staffs::OrganizationsController < ApplicationController
 
   def organization_params
     params.require(:organization).permit(:name, :kind, :inn, :ogrn, client_ids: [], device_ids: [])
+  end
+
+  def search_permitted_params
+    params.permit(:filter, :sortBy, :descending, :page, :rowsPerPage, :rowsNumber)
   end
 
   def errors_json
